@@ -7,7 +7,7 @@ return [
 
         // View settings
         'view' => [
-            'template_path' => __DIR__ . '/templates',
+            'template_path' => __DIR__ . '/Quotation/View',
             'twig' => [
                 'cache' => __DIR__ . '/../cache/twig',
                 'debug' => true,

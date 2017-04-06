@@ -1,14 +1,12 @@
 {
-    "name": "akrabat/slim3-skeleton",
-    "description": "Simple Slim Framework 3 skeleton with Twig & Monolog.",
-    "license": "BSD-3-Clause",
+    "name": "candrianarijaona/quotation",
+    "description": "A quotation application for MTV.",
+    "license": "Propretary",
     "type": "project",
-    "keywords": ["slim-framework", "skeleton"],
     "authors": [
         {
-            "name": "Rob Allen",
-            "email": "rob@akrabat.com",
-            "homepage": "http://akrabat.com"
+            "name": "Claude Andrianarijaona",
+            "email": "samuelson.claude@gmail.com"
         }
     ],
     "autoload": {

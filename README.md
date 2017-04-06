@@ -2,7 +2,7 @@
 
 A quotation application for MTV.
 
-## Create your project:
+## Initiate your project:
 
     $ composer update
 
