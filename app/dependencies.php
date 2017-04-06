@@ -37,10 +37,3 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// -----------------------------------------------------------------------------
-// Action factories
-// -----------------------------------------------------------------------------
-
-$container[App\Action\HomeAction::class] = function ($c) {
-    return new App\Action\HomeAction($c->get('view'), $c->get('logger'));
-};
