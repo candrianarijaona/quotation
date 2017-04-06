@@ -1,14 +1,14 @@
-# Slim 3 Skeleton
+# Madagascar Tropic Voyage Quotation
 
-This is a simple skeleton project for Slim 3 that includes Twig, Flash messages and Monolog.
+A quotation application for MTV.
 
 ## Create your project:
 
-    $ composer create-project --no-interaction --stability=dev akrabat/slim3-skeleton my-app
+    $ composer update
 
 ### Run it:
 
-1. `$ cd my-app`
+1. `$ cd quotation
 2. `$ php -S 0.0.0.0:8888 -t public public/index.php`
 3. Browse to http://localhost:8888
 
