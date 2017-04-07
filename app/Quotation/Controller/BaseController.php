@@ -6,12 +6,14 @@ namespace Quotation\Controller;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Slim\Container;
+use Slim\Views\Twig;
 
 /**
  * Class BaseController
  * @package Quotation\Controller
  * @property-read Container $container
  * @property-read Logger $logger
+ * @property-read Twig $view
  *
  */
 class BaseController
