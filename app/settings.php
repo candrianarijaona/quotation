@@ -14,7 +14,16 @@ return [
                 'auto_reload' => true,
             ],
         ],
-
+        'db' => [
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'database' => 'devis',
+            'username' => 'root',
+            'password' => '',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ],
         // monolog settings
         'logger' => [
             'name' => 'app',

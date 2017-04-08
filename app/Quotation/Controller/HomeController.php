@@ -5,6 +5,7 @@ namespace Quotation\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Quotation\Model\Article;
 
 class HomeController extends BaseController
 {
@@ -17,7 +18,9 @@ class HomeController extends BaseController
      */
     public function indexAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
-        $this->view->render($response, 'Home/home.twig');
+        $this->view->render($response, 'Home/home.html.twig', [
+            'articles' => Article::all(),
+        ]);
 
         return $response;
     }

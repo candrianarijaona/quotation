@@ -23,5 +23,9 @@ require __DIR__ . '/../app/middleware.php';
 // Register routes
 require __DIR__ . '/../app/routes.php';
 
+// Register the database connection with Eloquent
+$capsule = $app->getContainer()->get('db');
+$capsule->bootEloquent();
+
 // Run!
 $app->run();

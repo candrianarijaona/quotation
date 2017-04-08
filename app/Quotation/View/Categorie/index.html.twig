@@ -2,34 +2,30 @@
 
 {% block ribbon %}
     <div id="ribbon">
-        <ol class="breadcrumb"><li>Accueil</li><li>Article</li><li>Liste</li></ol>
+        <ol class="breadcrumb"><li>Accueil</li><li>Article</li><li>Catégorie</li></ol>
     </div>
 {% endblock %}
 
 {% block content %}
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>#</th>
-                <th>Désignation</th>
-                <th>Catégorie</th>
-                <th>Unité</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th>#</th>
+            <th>Désignation</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
-            {% for article in articles %}
+        {% for categorie in categories %}
             <tr>
-                <td>{{ article.id_article }}</td>
-                <td>{{ article.label }}</td>
-                <td>{{ article.categorie.label }}</td>
-                <td>{{ article.unite }}</td>
+                <td>{{ categorie.id_categorie }}</td>
+                <td>{{ categorie.label }}</td>
                 <td>
                     <button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></button>
                     <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}
@@ -38,7 +34,7 @@
     {{ parent() }}
     <script>
         jQuery(function () {
-           $('.table').dataTable();
+            $('.table').dataTable();
         });
     </script>
 {% endblock %}
