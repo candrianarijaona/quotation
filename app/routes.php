@@ -25,3 +25,14 @@ $app->group('/categorie', function() use ($app) {
     $app->post('/save', \Quotation\Controller\CategorieController::class . ':saveAction')
         ->setName('categorie-save');
 });
+
+$app->group('/hotel', function() use ($app) {
+    $app->get('/list', \Quotation\Controller\HotelController::class . ':indexAction')
+        ->setName('hotel-list');
+    $app->get('/edit[/{id: \d+}]', \Quotation\Controller\HotelController::class . ':editAction')
+        ->setName('hotel-edit');
+    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\HotelController::class . ':deleteAction')
+        ->setName('hotel-delete');
+    $app->post('/save', \Quotation\Controller\HotelController::class . ':saveAction')
+        ->setName('hotel-save');
+});

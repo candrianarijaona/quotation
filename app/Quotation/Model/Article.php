@@ -3,7 +3,6 @@
 namespace Quotation\Model;
 
 
-use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;
 
 class Article extends BaseModel

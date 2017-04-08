@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% import 'Default/forms.html.twig' as forms %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li>Accueil</li><li>Hotel</li><li>Edition</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% include 'Default/form_open.html.twig' with {'title' : 'Hotel'} %}
+
+        <form action="{{ path_for('hotel-save') }}" class="smart-form" method="post">
+            <header>
+                {% if hotel.id_hotel %}Modification{% else %}Nouveau{% endif %}
+            </header>
+
+            <fieldset>
+
+                <input type="hidden" name="id_hotel" value="{{ hotel.id_hotel }}" />
+
+                {{ forms.input('label', 'Nom', hotel.label, hotel.errors.label) }}
+
+                {{ forms.select('categorie', 'Catégorie', hotel.categorie, hotel.errors.categorie, range(1,5)) }}
+
+                {{ forms.input('prix_single', 'Prix Single', hotel.prix_single, hotel.errors.prix_single) }}
+
+                {{ forms.input('prix_double', 'Prix Double', hotel.label, hotel.errors.prix_double) }}
+
+            </fieldset>
+
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+                <a type="button" class="btn btn-default" href="{{ path_for('hotel-list') }}">
+                    Retour
+                </a>
+            </footer>
+        </form>
+    {% include 'Default/form_close.html.twig' %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% macro input(name, label, value, errors) %}
+    <section>
+        <label class="label">{{ label }}</label>
+        <label class="input {% if errors %}state-error{% endif %}">
+            <input type="text" id="{{ name }}" name="{{ name }}" value="{{ value }}" />
+        </label>
+        {% for error in errors %}
+            <div class="note note-error">{{ error }}</div>
+        {% endfor %}
+    </section>
+{% endmacro %}
+
+{% macro select(name, label, value, errors, dataProviders, idDataProvider, labelDataProvider) %}
+    <section>
+        <label class="label">{{ label }}</label>
+        <label class="select {% if errors %}state-error{% endif %}">
+            <select name="{{ name }}" id="{{ name }}">
+                <option value="">Veuillez choisir</option>
+                {% for option in dataProviders %}
+                    {% if attribute(option, idDataProvider) %}
+                        {% set option =  attribute(option, idDataProvider) %}
+                        {% set optionLabel =  attribute(option, labelDataProvider) %}
+                        {{ dump(optionLabel) }}
+                    {% else %}
+                        {% set optionLabel =  option %}
+                    {% endif %}
+                    <option value="{{ option }}" {% if option == value %}selected="selected"{% endif %}>{{ optionLabel }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        {% for error in errors %}
+            <div class="note note-error">{{ error }}</div>
+        {% endfor %}
+    </section>
+{% endmacro %}

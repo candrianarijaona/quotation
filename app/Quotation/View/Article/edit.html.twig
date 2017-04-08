@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% import 'Default/forms.html.twig' as forms %}
+
 {% block ribbon %}
     <div id="ribbon">
         <ol class="breadcrumb"><li>Accueil</li><li>Article</li><li>Edition</li></ol>
@@ -7,96 +9,49 @@
 {% endblock %}
 
 {% block content %}
-    <section id="widget-grid" class="">
-        <!-- START ROW -->
-        <div class="row">
-            <!-- NEW COL START -->
-            <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+    {% include 'Default/form_open.html.twig' with {'title' : 'Hotel'} %}
 
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-sortable" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" role="widget">
-                    <header role="heading"><div class="jarviswidget-ctrls" role="menu">   <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus"></i></a> <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a> <a href="javascript:void(0);" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete"><i class="fa fa-times"></i></a></div>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                        <h2>Article</h2>
-                        <span class="jarviswidget-loader" style="display: none;"><i class="fa fa-refresh fa-spin"></i></span></header>
+        <form action="{{ path_for('article-save') }}" class="smart-form" method="post">
+            <header>
+                {% if article.id_article %}Modification{% else %}Nouveau{% endif %}
+            </header>
 
-                    <!-- widget div-->
-                    <div role="content" style="display: block;">
+            <fieldset>
 
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
+                <input type="hidden" name="id_article" value="{{ article.id_article }}" />
 
-                        </div>
-                        <!-- end widget edit box -->
+                <section>
+                    <label class="label">Désignation</label>
+                    <label class="input {% if article.errors.label %}state-error{% endif %}">
+                        <input type="text" id="label" name="label" value="{{ article.label }}" />
+                    </label>
+                    {% for error in article.errors.label %}
+                        <div class="note note-error">{{ error }}</div>
+                    {% endfor %}
+                </section>
 
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
+                {{ forms.select('id_categorie', 'Catégorie', hotel.id_categorie, hotel.errors.id_categorie, categories, 'id_categorie', 'label') }}{{* set the last args as ['data': data, 'id' : id, 'label' : label] *}}
 
-                            <form action="{{ path_for('article-save') }}" class="smart-form" method="post">
-                                <header>
-                                    {% if article.id_article %}Modification{% else %}Nouveau{% endif %}
-                                </header>
+                <section>
+                    <label class="label">Unité</label>
+                    <label class="input {% if article.errors.unite %}state-error{% endif %}">
+                        <input type="text" id="unite" name="unite" value="{{ article.unite }}" />
+                    </label>
+                    {% for error in article.errors.unite %}
+                        <div class="note note-error">{{ error }}</div>
+                    {% endfor %}
+                </section>
 
-                                <fieldset>
+            </fieldset>
 
-                                    <input type="hidden" name="id_article" value="{{ article.id_article }}" />
-
-                                    <section>
-                                        <label class="label">Désignation</label>
-                                        <label class="input {% if article.errors.label %}state-error{% endif %}">
-                                            <input type="text" id="label" name="label" value="{{ article.label }}" />
-                                        </label>
-                                        {% for error in article.errors.label %}
-                                            <div class="note note-error">{{ error }}</div>
-                                        {% endfor %}
-                                    </section>
-
-                                    <section>
-                                        <label class="label">Catégorie</label>
-                                        <label class="select {% if article.errors.id_categorie %}state-error{% endif %}">
-                                            <select name="id_categorie" id="id_categorie">
-                                                <option value="">Choisir la catégorie</option>
-                                                {% for categorie in categories %}
-                                                    <option value="{{ categorie.id_categorie }}" {% if categorie.id_categorie == article.id_categorie %}selected="selected"{% endif %}>{{ categorie.label }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        {% for error in article.errors.id_categorie %}
-                                            <div class="note note-error">{{ error }}</div>
-                                        {% endfor %}
-                                    </section>
-
-                                    <section>
-                                        <label class="label">Unité</label>
-                                        <label class="input {% if article.errors.unite %}state-error{% endif %}">
-                                            <input type="text" id="unite" name="unite" value="{{ article.unite }}" />
-                                        </label>
-                                        {% for error in article.errors.unite %}
-                                            <div class="note note-error">{{ error }}</div>
-                                        {% endfor %}
-                                    </section>
-
-                                </fieldset>
-
-                                <footer>
-                                    <button type="submit" class="btn btn-primary">
-                                        Enregistrer
-                                    </button>
-                                    <a type="button" class="btn btn-default" href="{{ path_for('article-list') }}">
-                                        Retour
-                                    </a>
-                                </footer>
-                            </form>
-                        </div>
-                        <!-- end widget content -->
-                    </div>
-                    <!-- end widget div -->
-                </div>
-                <!-- end widget -->
-            </article>
-            <!-- END COL -->
-        </div>
-        <!-- END ROW -->
-    </section>
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+                <a type="button" class="btn btn-default" href="{{ path_for('article-list') }}">
+                    Retour
+                </a>
+            </footer>
+        </form>
+    {% include 'Default/form_close.html.twig' %}
 {% endblock %}
