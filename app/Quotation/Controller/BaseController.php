@@ -5,6 +5,7 @@ namespace Quotation\Controller;
 
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Views\Twig;
 
@@ -47,6 +48,8 @@ class BaseController
     /**
      * @param $url
      * @param int $redirectStatus
+     *
+     * @return ResponseInterface
      */
     public function redirect($url, $redirectStatus = 302)
     {
