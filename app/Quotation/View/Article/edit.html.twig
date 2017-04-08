@@ -2,7 +2,7 @@
 
 {% block ribbon %}
     <div id="ribbon">
-        <ol class="breadcrumb"><li>Accueil</li><li>Catégorie</li><li>Edition</li></ol>
+        <ol class="breadcrumb"><li>Accueil</li><li>Article</li><li>Edition</li></ol>
     </div>
 {% endblock %}
 
@@ -17,7 +17,7 @@
                 <div class="jarviswidget jarviswidget-sortable" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" role="widget">
                     <header role="heading"><div class="jarviswidget-ctrls" role="menu">   <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus"></i></a> <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a> <a href="javascript:void(0);" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete"><i class="fa fa-times"></i></a></div>
                         <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                        <h2>Catégorie</h2>
+                        <h2>Article</h2>
                         <span class="jarviswidget-loader" style="display: none;"><i class="fa fa-refresh fa-spin"></i></span></header>
 
                     <!-- widget div-->
@@ -33,29 +33,57 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
-                            <form action="{{ path_for('categorie-save') }}" class="smart-form" method="post">
+                            <form action="{{ path_for('article-save') }}" class="smart-form" method="post">
                                 <header>
-                                    {% if categorie.id_categorie %}Modification{% else %}Nouveau{% endif %}
+                                    {% if article.id_article %}Modification{% else %}Nouveau{% endif %}
                                 </header>
 
                                 <fieldset>
-                                    <input type="hidden" name="id_categorie" value="{{ categorie.id_categorie }}" />
+
+                                    <input type="hidden" name="id_article" value="{{ article.id_article }}" />
+
                                     <section>
                                         <label class="label">Désignation</label>
-                                        <label class="input {% if categorie.errors.label %}state-error{% endif %}">
-                                            <input type="text" id="label" name="label" value="{{ categorie.label }}" />
+                                        <label class="input {% if article.errors.label %}state-error{% endif %}">
+                                            <input type="text" id="label" name="label" value="{{ article.label }}" />
                                         </label>
-                                        {% for error in categorie.errors.label %}
+                                        {% for error in article.errors.label %}
                                             <div class="note note-error">{{ error }}</div>
                                         {% endfor %}
                                     </section>
+
+                                    <section>
+                                        <label class="label">Catégorie</label>
+                                        <label class="select {% if article.errors.id_categorie %}state-error{% endif %}">
+                                            <select name="id_categorie" id="id_categorie">
+                                                <option value="">Choisir la catégorie</option>
+                                                {% for categorie in categories %}
+                                                    <option value="{{ categorie.id_categorie }}" {% if categorie.id_categorie == article.id_categorie %}selected="selected"{% endif %}>{{ categorie.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </label>
+                                        {% for error in article.errors.id_categorie %}
+                                            <div class="note note-error">{{ error }}</div>
+                                        {% endfor %}
+                                    </section>
+
+                                    <section>
+                                        <label class="label">Unité</label>
+                                        <label class="input {% if article.errors.unite %}state-error{% endif %}">
+                                            <input type="text" id="unite" name="unite" value="{{ article.unite }}" />
+                                        </label>
+                                        {% for error in article.errors.unite %}
+                                            <div class="note note-error">{{ error }}</div>
+                                        {% endfor %}
+                                    </section>
+
                                 </fieldset>
 
                                 <footer>
                                     <button type="submit" class="btn btn-primary">
                                         Enregistrer
                                     </button>
-                                    <a type="button" class="btn btn-default" href="{{ path_for('categorie-list') }}">
+                                    <a type="button" class="btn btn-default" href="{{ path_for('article-list') }}">
                                         Retour
                                     </a>
                                 </footer>

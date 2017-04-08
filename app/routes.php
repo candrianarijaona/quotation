@@ -7,10 +7,12 @@ $app->get('/', \Quotation\Controller\HomeController::class . ':indexAction')
 $app->group('/article', function() use ($app) {
     $app->get('/list', \Quotation\Controller\ArticleController::class . ':indexAction')
         ->setName('article-list');
-    $app->get('/edit', \Quotation\Controller\ArticleController::class . ':editAction')
+    $app->get('/edit[/{id: \d+}]', \Quotation\Controller\ArticleController::class . ':editAction')
         ->setName('article-edit');
-    $app->get('/delete', \Quotation\Controller\ArticleController::class . ':deleteAction')
+    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\ArticleController::class . ':deleteAction')
         ->setName('article-delete');
+    $app->post('/save', \Quotation\Controller\ArticleController::class . ':saveAction')
+        ->setName('article-save');
 });
 
 $app->group('/categorie', function() use ($app) {

@@ -7,29 +7,94 @@
 {% endblock %}
 
 {% block content %}
-    <table class="table datatable table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Désignation</th>
-                <th>Catégorie</th>
-                <th>Unité</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for article in articles %}
-            <tr>
-                <td>{{ article.id_article }}</td>
-                <td>{{ article.label }}</td>
-                <td>{{ article.categorie.label }}</td>
-                <td>{{ article.unite }}</td>
-                <td>
-                    <a href="{{ path_for('article-edit') }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-                    <a href="{{ path_for('article-delete') }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div id="content" style="opacity: 1;">
+        <!-- widget grid -->
+        <section id="widget-grid" class="">
+            <!-- row -->
+            <div class="row">
+
+                <!-- NEW COL START -->
+                <article class="col-sm-12 sortable-grid ui-sortable">
+
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0"
+                         data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false"
+                         role="widget">
+                        <header role="heading">
+                            <div class="jarviswidget-ctrls" role="menu"><a href="javascript:void(0);"
+                                                                           class="button-icon jarviswidget-toggle-btn"
+                                                                           rel="tooltip" title=""
+                                                                           data-placement="bottom"
+                                                                           data-original-title="Collapse"><i
+                                        class="fa fa-minus "></i></a> <a href="javascript:void(0);"
+                                                                         class="button-icon jarviswidget-fullscreen-btn"
+                                                                         rel="tooltip" title="" data-placement="bottom"
+                                                                         data-original-title="Fullscreen"><i
+                                        class="fa fa-expand "></i></a> <a href="javascript:void(0);"
+                                                                          class="button-icon jarviswidget-delete-btn"
+                                                                          rel="tooltip" title="" data-placement="bottom"
+                                                                          data-original-title="Delete"><i
+                                        class="fa fa-times"></i></a></div>
+                            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                            <h2>Catégorie </h2>
+
+                            <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+                        <!-- widget div-->
+                        <div role="content">
+
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
+                            </div>
+                            <!-- end widget edit box -->
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <div class="widget-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="{{ path_for('article-edit') }}" class="btn btn btn-default">
+                                                Nouveau
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table datatable table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Désignation</th>
+                                        <th>Catégorie</th>
+                                        <th>Unité</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for article in articles %}
+                                        <tr>
+                                            <td>{{ article.id_article }}</td>
+                                            <td>{{ article.label }}</td>
+                                            <td>{{ article.categorie.label }}</td>
+                                            <td>{{ article.unite }}</td>
+                                            <td>
+                                                <a href="{{ path_for('article-edit', {'id': article.id_article}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a href="{{ path_for('article-delete', {'id': article.id_article}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end widget content -->
+                        </div>
+                        <!-- end widget div -->
+                    </div>
+                    <!-- end widget -->
+                </article>
+            </div>
+            <!-- END ROW -->
+        </section>
+        <!-- end widget grid -->
+    </div>
 {% endblock %}

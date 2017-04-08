@@ -31,6 +31,39 @@ abstract class BaseModel extends Model
     abstract protected function setValidator($data);
 
     /**
+     * @param array $attributes
+     * @param array $options
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        if ($this->validate($attributes)) {
+            return parent::update($attributes, $options);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param array $attributes
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function save(array $options = [])
+    {
+
+        if ($this->validate($this->getAttributes())) {
+            return parent::save();
+        }
+
+        return false;
+    }
+
+    /**
      * @param $data
      * @return bool
      * @throws \Exception

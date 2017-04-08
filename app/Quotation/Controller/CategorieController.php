@@ -97,7 +97,7 @@ class CategorieController extends BaseController
     {
         $categorie = Categorie::find($request->getAttribute('id'));
 
-        $categorie->delete();
+        $categorie->delete();//To do check articles
 
         return $this->redirect($this->get('router')->pathFor('categorie-list'));
     }
