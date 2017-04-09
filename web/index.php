@@ -10,6 +10,11 @@ require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
+if (file_exists(dirname(__DIR__) . '/.env')) {
+    $dotenv = new \Dotenv\Dotenv(dirname(__DIR__));
+    $dotenv->overload();
+}
+
 // Instantiate the app
 $settings = require __DIR__ . '/../app/settings.php';
 $app = new \Slim\App($settings);

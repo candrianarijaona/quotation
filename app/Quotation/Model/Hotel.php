@@ -11,7 +11,8 @@ class Hotel extends BaseModel
 
     protected $primaryKey = 'id_hotel';
 
-    protected $fillable = ['label', 'categorie', 'prix_single'];
+
+    protected $fillable = ['label', 'categorie', 'prix_single', 'prix_double', 'prix_petit_dejeuner', 'prix_dejeuner', 'prix_diner', 'lit_supp', 'vignette', 'taxe'];
 
     /**
      * @param $data
@@ -26,6 +27,14 @@ class Hotel extends BaseModel
             ->rule('lengthBetween', 'label', 5, 100);
 
         $this->validator->rule('required', 'categorie');
+        $this->validator
+            ->rule('required', 'prix_single')
+            ->rule('numeric', 'prix_single');
+
+        $this->validator
+            ->rule('required', 'prix_double')
+            ->rule('numeric', 'prix_double');
+
         $this->validator
             ->labels([
                 'label' => 'Le nom de l\'hotel',

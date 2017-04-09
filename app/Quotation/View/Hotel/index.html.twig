@@ -2,89 +2,45 @@
 
 {% block ribbon %}
     <div id="ribbon">
-        <ol class="breadcrumb"><li>Accueil</li><li>Hotel</li><li>Liste</li></ol>
+        <ol class="breadcrumb"><li>Accueil</li><li>Hotel</li></ol>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div id="content" style="opacity: 1;">
-        <!-- widget grid -->
-        <section id="widget-grid" class="">
-            <!-- row -->
-            <div class="row">
-
-                <!-- NEW COL START -->
-                <article class="col-sm-12 sortable-grid ui-sortable">
-
-                    <!-- Widget ID (each widget will need unique ID)-->
-                    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" role="widget">
-                        <header role="heading">
-                            <div class="jarviswidget-ctrls" role="menu">
-                                <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse">
-                                    <i class="fa fa-minus "></i>
-                                </a>
-                                <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
-                                    <i class="fa fa-expand "></i>
-                                </a>
-                                <a href="javascript:void(0);" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                            <h2>Article</h2>
-                            <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
-                        </header>
-                        <!-- widget div-->
-                        <div role="content">
-                            <!-- widget edit box -->
-                            <div class="jarviswidget-editbox">
-                                <!-- This area used as dropdown edit box -->
-                            </div>
-                            <!-- end widget edit box -->
-                            <!-- widget content -->
-                            <div class="widget-body">
-                                <div class="widget-body-toolbar">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <a href="{{ path_for('hotel-edit') }}" class="btn btn btn-default">Nouveau</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <table class="table datatable table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nom</th>
-                                        <th>Catégorie</th>
-                                        <th>Prix Double</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for article in articles %}
-                                        <tr>
-                                            <td>{{ hotel.id_hotel }}</td>
-                                            <td>{{ hotel.label }}</td>
-                                            <td>{{ hotel.categorie }}</td>
-                                            <td>{{ hotel.prix_double }}</td>
-                                            <td>
-                                                <a href="{{ path_for('hotel-edit', {'id': hotel.id_hotel}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-                                                <a href="{{ path_for('hotel-delete', {'id': hotel.id_hotel}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- end widget content -->
-                        </div>
-                        <!-- end widget div -->
+    {% include "Default/list_open.html.twig" %}
+        <div class="widget-body">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{ path_for('hotel-edit') }}" class="btn btn btn-default">Nouveau</a>
                     </div>
-                    <!-- end widget -->
-                </article>
+                </div>
             </div>
-            <!-- END ROW -->
-        </section>
-        <!-- end widget grid -->
-    </div>
+            <table class="table datatable table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Prix Double</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for hotel in hotels %}
+                    <tr>
+                        <td>{{ hotel.id_hotel }}</td>
+                        <td>{{ hotel.label }}</td>
+                        <td>{{ hotel.categorie }}</td>
+                        <td>{{ hotel.prix_double }}</td>
+                        <td>
+                            <a href="{{ path_for('hotel-edit', {'id': hotel.id_hotel}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="{{ path_for('hotel-delete', {'id': hotel.id_hotel}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% include "Default/list_close.html.twig" %}
 {% endblock %}

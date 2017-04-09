@@ -16,13 +16,13 @@ return [
         ],
         'db' => [
             'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'devis',
-            'username' => 'root',
-            'password' => '',
+            'host' => getenv('DATABASE_HOST'),
+            'database' => getenv('DATABASE_NAME'),
+            'username' => getenv('DATABASE_USER'),
+            'password' => getenv('DATABASE_PASSWORD'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
+            'prefix'    => 'dv_',
         ],
         // monolog settings
         'logger' => [

@@ -1,6 +1,6 @@
-{% macro input(name, label, value, errors) %}
-    <section>
-        <label class="label">{{ label }}</label>
+{% macro input(name, label, value, errors, classe) %}
+    <section {% if classe %}class="{{ classe }}"{% endif %}>
+        <label class="label" for="{{ name }}">{{ label }}</label>
         <label class="input {% if errors %}state-error{% endif %}">
             <input type="text" id="{{ name }}" name="{{ name }}" value="{{ value }}" />
         </label>
@@ -10,21 +10,16 @@
     </section>
 {% endmacro %}
 
-{% macro select(name, label, value, errors, dataProviders, idDataProvider, labelDataProvider) %}
+{% macro select(name, label, value, errors, dataProvider) %}
     <section>
-        <label class="label">{{ label }}</label>
+        <label class="label" for="{{ name }}">{{ label }}</label>
         <label class="select {% if errors %}state-error{% endif %}">
             <select name="{{ name }}" id="{{ name }}">
                 <option value="">Veuillez choisir</option>
-                {% for option in dataProviders %}
-                    {% if attribute(option, idDataProvider) %}
-                        {% set option =  attribute(option, idDataProvider) %}
-                        {% set optionLabel =  attribute(option, labelDataProvider) %}
-                        {{ dump(optionLabel) }}
-                    {% else %}
-                        {% set optionLabel =  option %}
-                    {% endif %}
-                    <option value="{{ option }}" {% if option == value %}selected="selected"{% endif %}>{{ optionLabel }}</option>
+                {% for option in dataProvider.data %}
+                    {% set optionValue = attribute(option, dataProvider.id) %}
+                    {% set optionLabel = attribute(option, dataProvider.label)%}
+                    <option value="{{ optionValue is not null ? optionValue : option }}" {% if (optionValue is not null and optionValue == value) or (optionValue is null and option == value) %}selected="selected"{% endif %}>{{ optionLabel is not null ? optionLabel : option }}</option>
                 {% endfor %}
             </select>
         </label>

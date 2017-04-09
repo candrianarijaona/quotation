@@ -4,7 +4,7 @@
 
 {% block ribbon %}
     <div id="ribbon">
-        <ol class="breadcrumb"><li>Accueil</li><li>Article</li><li>Edition</li></ol>
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li><a href="{{ path_for('article-list') }}">Article</a></li><li>Edition</li></ol>
     </div>
 {% endblock %}
 
@@ -30,7 +30,7 @@
                     {% endfor %}
                 </section>
 
-                {{ forms.select('id_categorie', 'Catégorie', hotel.id_categorie, hotel.errors.id_categorie, categories, 'id_categorie', 'label') }}{{* set the last args as ['data': data, 'id' : id, 'label' : label] *}}
+                {{ forms.select('id_categorie', 'Catégorie', article.id_categorie, article.errors.id_categorie, {'data': categories, 'id' : 'id_categorie', 'label' : 'label'}) }}
 
                 <section>
                     <label class="label">Unité</label>

@@ -2,7 +2,7 @@
 // Routes
 
 $app->get('/', \Quotation\Controller\HomeController::class . ':indexAction')
-    ->setName('homepage');
+    ->setName('home');
 
 $app->group('/article', function() use ($app) {
     $app->get('/list', \Quotation\Controller\ArticleController::class . ':indexAction')

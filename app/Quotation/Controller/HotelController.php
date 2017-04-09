@@ -20,7 +20,7 @@ class HotelController extends BaseController
     public function indexAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
         $this->view->render($response, 'Hotel/index.html.twig', [
-            'articles' => Hotel::all(),
+            'hotels' => Hotel::all(),
         ]);
 
         return $response;
@@ -38,12 +38,11 @@ class HotelController extends BaseController
         $hotel = new Hotel();
 
         if ($request->getAttribute('id')) {
-            $article = Hotel::find($request->getAttribute('id'));
+            $hotel = Hotel::find($request->getAttribute('id'));
         }
 
         $this->view->render($response, 'Hotel/edit.html.twig', [
-            'article' => $hotel,
-            'categories' => Hotel::all()->sortBy('label'),
+            'hotel' => $hotel,
         ]);
 
         return $response;
@@ -58,7 +57,7 @@ class HotelController extends BaseController
      */
     public function saveAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
-        $postedValues = $request->getParsedBody();
+        $postedValues = array_filter($request->getParsedBody());
 
         $id = isset($postedValues['id_hotel']) ? $postedValues['id_hotel'] : null;
 
@@ -90,10 +89,10 @@ class HotelController extends BaseController
      */
     public function deleteAction(ServerRequestInterface $request, ResponseInterface $response, $arg)
     {
-        $article = Article::find($request->getAttribute('id'));
+        $hotel = Hotel::find($request->getAttribute('id'));
 
-        $article->delete();
+        $hotel->delete();
 
-        return $this->redirect($this->get('router')->pathFor('article-list'));
+        return $this->redirect($this->get('router')->pathFor('hotel-list'));
     }
 }

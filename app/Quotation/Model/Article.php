@@ -18,7 +18,7 @@ class Article extends BaseModel
      */
     public function categorie()
     {
-        return $this->hasOne('Quotation\Model\Categorie', 'id_categorie');
+        return $this->hasOne('Quotation\Model\Categorie', 'id_categorie', 'id_categorie');
     }
 
     /**
@@ -31,7 +31,7 @@ class Article extends BaseModel
 
         $this->validator
             ->rule('required', 'label')
-            ->rule('lengthBetween', 'label', 5, 100);
+            ->rule('lengthBetween', 'label', 2, 100);
 
         $this->validator
             ->rule('required', 'unite');
