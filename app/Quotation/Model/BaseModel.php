@@ -48,16 +48,14 @@ abstract class BaseModel extends Model
     }
 
     /**
-     * @param array $attributes
-     *
+     * @param array $options
      * @return bool
-     * @throws \Exception
      */
     public function save(array $options = [])
     {
 
         if ($this->validate($this->getAttributes())) {
-            return parent::save();
+            return parent::save($options);
         }
 
         return false;
@@ -66,7 +64,6 @@ abstract class BaseModel extends Model
     /**
      * @param $data
      * @return bool
-     * @throws \Exception
      */
     protected function validate($data)
     {

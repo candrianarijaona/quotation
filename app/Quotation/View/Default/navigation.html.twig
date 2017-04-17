@@ -18,10 +18,10 @@
             <a href="#" title="Devis"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Devis</span></a>
             <ul>
                 <li>
-                    <a href="#">Liste</a>
+                    <a href="{{ path_for('devis-list') }}">Liste</a>
                 </li>
                 <li>
-                    <a href="#">Nouveau</a>
+                    <a href="{{ path_for('devis-edit') }}">Nouveau</a>
                 </li>
             </ul>
         </li>
@@ -30,13 +30,10 @@
             <a href="#" title="Prestation"><i class="fa fa-lg fa-fw fa-cubes"></i> <span class="menu-item-parent">Prestation</span></a>
             <ul>
                 <li>
-                    <a href="#">Liste</a>
+                    <a href="{{ path_for('prestation-list') }}">Liste</a>
                 </li>
                 <li>
-                    <a href="#">Catégorie</a>
-                </li>
-                <li>
-                    <a href="#">Nouveau</a>
+                    <a href="{{ path_for('prestation-edit') }}">Nouveau</a>
                 </li>
             </ul>
         </li>

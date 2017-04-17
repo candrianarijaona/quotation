@@ -14,6 +14,7 @@ class Categorie extends BaseModel
 
     /**
      * @param $data
+     * @return void
      */
     public function setValidator($data)
     {

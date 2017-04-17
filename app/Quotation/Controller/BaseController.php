@@ -12,18 +12,16 @@ use Slim\Views\Twig;
 /**
  * Class BaseController
  * @package Quotation\Controller
- * @property-read Container $container
- * @property-read Logger $logger
- * @property-read Twig $view
- *
  */
 class BaseController
 {
-
+    /** @var ContainerInterface */
     protected $container;
 
+    /** @var Twig */
     protected $view;
 
+    /** @var Logger */
     protected $logger;
 
     /**

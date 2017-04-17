@@ -14,7 +14,7 @@
     <section>
         <label class="label" for="{{ name }}">{{ label }}</label>
         <label class="select {% if errors %}state-error{% endif %}">
-            <select name="{{ name }}" id="{{ name }}">
+            <select name="{{ name }}" id="{{ name }}" class="select2" style="width:100%">
                 <option value="">Veuillez choisir</option>
                 {% for option in dataProvider.data %}
                     {% set optionValue = attribute(option, dataProvider.id) %}

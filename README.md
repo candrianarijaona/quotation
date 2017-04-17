@@ -9,7 +9,7 @@ A quotation application for MTV.
 ### Run it:
 
 1. `$ cd quotation
-2. `$ php -S 0.0.0.0:8888 -t public public/index.php`
+2. `$ php -S 0.0.0.0:8888 -t web web/index.php`
 3. Browse to http://localhost:8888
 
 ## Key directories

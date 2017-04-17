@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% import 'Default/forms.html.twig' as forms %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li><a href="{{ path_for('prestation-list') }}">Prestation</a></li><li>Edition</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% include 'Default/form_open.html.twig' with {'title' : 'Prestation'} %}
+
+        <form action="{{ path_for('prestation-edit', {'id': prestation.id_prestation}) }}" class="smart-form" method="post">
+            <header>
+                {% if prestation.id_prestation %}Modification{% else %}Nouveau{% endif %}
+            </header>
+
+            <fieldset>
+
+                <input type="hidden" name="id_prestation" value="{{ prestation.id_prestation }}" />
+
+                {{ forms.input('label', 'Désignation', prestation.label, prestation.errors.label) }}
+
+                {{ forms.select('type', 'Type', prestation.type, prestation.errors.type, {'data': ['forfait', 'location', 'autre']}) }}
+
+            </fieldset>
+
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+                <a type="button" class="btn btn-default" href="{{ path_for('prestation-list') }}">
+                    Retour
+                </a>
+            </footer>
+        </form>
+    {% include 'Default/form_close.html.twig' %}
+{% endblock %}

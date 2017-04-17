@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include "Default/list_open.html.twig" %}
+    {% include "Default/list_open.html.twig" with {'title' : 'Hotel'} %}
         <div class="widget-body">
             <div class="widget-body-toolbar">
                 <div class="row">
@@ -21,6 +21,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nom</th>
+                    <th>Ville</th>
                     <th>Catégorie</th>
                     <th>Prix Double</th>
                     <th>Action</th>
@@ -31,6 +32,7 @@
                     <tr>
                         <td>{{ hotel.id_hotel }}</td>
                         <td>{{ hotel.label }}</td>
+                        <td>{{ hotel.ville.label }}</td>
                         <td>{{ hotel.categorie }}</td>
                         <td>{{ hotel.prix_double }}</td>
                         <td>

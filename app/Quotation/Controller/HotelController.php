@@ -6,6 +6,7 @@ namespace Quotation\Controller;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Quotation\Model\Hotel;
+use Quotation\Model\Ville;
 
 class HotelController extends BaseController
 {
@@ -35,47 +36,31 @@ class HotelController extends BaseController
      */
     public function editAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
-        $hotel = new Hotel();
+        $id = $request->getAttribute('id');
 
-        if ($request->getAttribute('id')) {
-            $hotel = Hotel::find($request->getAttribute('id'));
+        /** @var Hotel $hotel */
+        $hotel = $id ? Hotel::find($id) : null;
+
+        if ($request->isPost()) {
+            $postedValues = $request->getParsedBody();
+
+            if ($id) {
+                $hotel->update($postedValues);
+            } else {
+                $hotel = new Hotel($postedValues);
+                $hotel->save();
+            }
+
+            //If no errors, go the page list
+            if (!$hotel->getErrors()) {
+                return $this->redirect($this->get('router')->pathFor('hotel-list'));
+            }
         }
 
         $this->view->render($response, 'Hotel/edit.html.twig', [
             'hotel' => $hotel,
+            'villes' => Ville::all()->sortBy('label'),
         ]);
-
-        return $response;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param $args
-     *
-     * @return ResponseInterface
-     */
-    public function saveAction(ServerRequestInterface $request, ResponseInterface $response, $args)
-    {
-        $postedValues = array_filter($request->getParsedBody());
-
-        $id = isset($postedValues['id_hotel']) ? $postedValues['id_hotel'] : null;
-
-        if ($id) {
-            $hotel = Hotel::find($id);
-            $hotel->update($postedValues);
-        } else {
-            $hotel = new Hotel($postedValues);
-            $hotel->save();
-        }
-
-        if ($hotel->getErrors()) {
-            $this->view->render($response, 'Hotel/edit.html.twig', [
-                'hotel' => $hotel,
-            ]);
-        } else {
-            $response = $this->redirect($this->get('router')->pathFor('hotel-list'));
-        }
 
         return $response;
     }
@@ -89,9 +74,10 @@ class HotelController extends BaseController
      */
     public function deleteAction(ServerRequestInterface $request, ResponseInterface $response, $arg)
     {
-        $hotel = Hotel::find($request->getAttribute('id'));
-
-        $hotel->delete();
+        /** @var Hotel $hotel */
+        if ($hotel = Hotel::find($request->getAttribute('id'))) {
+            $hotel->delete();
+        }
 
         return $this->redirect($this->get('router')->pathFor('hotel-list'));
     }

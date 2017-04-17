@@ -41,47 +41,29 @@ class CategorieController extends BaseController
      */
     public function editAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
-        $categorie = new Categorie();
+        $id = $request->getAttribute('id');
 
-        if ($request->getAttribute('id')) {
-            $categorie = Categorie::find($request->getAttribute('id'));
+        $categorie = $id ? Categorie::find($id) : null;
+
+        if ($request->isPost()) {
+            $postedValues = $request->getParsedBody();
+
+            if ($id) {
+                $categorie->update($postedValues);
+            } else {
+                $categorie = new Categorie($postedValues);
+                $categorie->save();
+            }
+
+            //If no errors, go the page list
+            if (!$categorie->getErrors()) {
+                return $this->redirect($this->get('router')->pathFor('categorie-list'));
+            }
         }
 
         $this->view->render($response, 'Categorie/edit.html.twig', [
             'categorie' => $categorie,
         ]);
-
-        return $response;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param $args
-     *
-     * @return ResponseInterface
-     */
-    public function saveAction(ServerRequestInterface $request, ResponseInterface $response, $args)
-    {
-        $postedValues = array_filter($request->getParsedBody());
-
-        $id = isset($postedValues['id_categorie']) ? $postedValues['id_categorie'] : null;
-
-        if ($id) {
-            $categorie = Categorie::find($id);
-            $categorie->update($postedValues);
-        } else {
-            $categorie = new Categorie($postedValues);
-            $categorie->save();
-        }
-
-        if ($categorie->getErrors()) {
-            $this->view->render($response, 'Categorie/edit.html.twig', [
-                'categorie' => $categorie,
-            ]);
-        } else {
-            $response = $this->redirect($this->get('router')->pathFor('categorie-list'));
-        }
 
         return $response;
     }
@@ -95,9 +77,10 @@ class CategorieController extends BaseController
      */
     public function deleteAction(ServerRequestInterface $request, ResponseInterface $response, $arg)
     {
-        $categorie = Categorie::find($request->getAttribute('id'));
-
-        $categorie->delete();//To do check articles
+        /** @var Categorie $categorie */
+        if ($categorie = Categorie::find($request->getAttribute('id'))) {
+            $categorie->delete();
+        }
 
         return $this->redirect($this->get('router')->pathFor('categorie-list'));
     }

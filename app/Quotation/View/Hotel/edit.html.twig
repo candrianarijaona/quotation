@@ -11,7 +11,7 @@
 {% block content %}
     {% include 'Default/form_open.html.twig' with {'title' : 'Hotel'} %}
 
-        <form action="{{ path_for('hotel-save') }}" class="smart-form" method="post">
+        <form action="{{ path_for('hotel-edit', {'id': hotel.id_hotel}) }}" class="smart-form" method="post">
             <header>
                 {% if hotel.id_hotel %}Modification{% else %}Nouveau{% endif %}
             </header>
@@ -21,6 +21,8 @@
                 <input type="hidden" name="id_hotel" value="{{ hotel.id_hotel }}" />
 
                 {{ forms.input('label', 'Nom', hotel.label, hotel.errors.label) }}
+
+                {{ forms.select('id_ville', 'Ville', hotel.id_ville, hotel.errors.id_ville, {'data' : villes, 'id': 'id_ville', 'label': 'label'}) }}
 
                 {{ forms.select('categorie', 'Catégorie', hotel.categorie, hotel.errors.categorie, {'data' : range(1,5)}) }}
 

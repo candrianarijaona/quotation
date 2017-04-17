@@ -2,16 +2,14 @@
 
 {% block ribbon %}
     <div id="ribbon">
-        <ol class="breadcrumb">
-            <li>Accueil</li>
-            <li>Catégorie</li>
-            <li>Liste</li>
-        </ol>
+        <div id="ribbon">
+            <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li>Catégorie</li></ol>
+        </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {% include "Default/list_open.html.twig" %}
+    {% include "Default/list_open.html.twig" with {'title' : 'Catégorie'} %}
         <div class="widget-body">
             <div class="widget-body-toolbar">
 

@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li>Prestation</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% include "Default/list_open.html.twig" with {'title' : 'Prestation'} %}
+        <div class="widget-body">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{ path_for('prestation-edit') }}" class="btn btn btn-default">Nouveau</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table datatable table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Désignation</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for prestation in prestations %}
+                    <tr>
+                        <td>{{ prestation.id_prestation }}</td>
+                        <td>{{ prestation.label}}</td>
+                        <td>{{ prestation.type }}</td>
+                        <td>
+                            <a href="{{ path_for('prestation-edit', {'id': prestation.id_prestation}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="{{ path_for('prestation-delete', {'id': prestation.id_prestation}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% include "Default/list_close.html.twig" %}
+{% endblock %}

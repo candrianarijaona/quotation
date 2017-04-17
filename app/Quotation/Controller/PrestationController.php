@@ -2,16 +2,15 @@
 
 namespace Quotation\Controller;
 
+
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Quotation\Model\Article;
-use Quotation\Model\Categorie;
+use Quotation\Model\Prestation;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
-/**
- * Class ArticleController
- * @package Quotation\Controller
- */
-class ArticleController extends BaseController
+
+class PrestationController extends BaseController
 {
 
     /**
@@ -23,16 +22,16 @@ class ArticleController extends BaseController
      */
     public function indexAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
-        $this->view->render($response, 'Article/index.html.twig', [
-            'articles' => Article::all(),
+        $this->view->render($response, 'Prestation/index.html.twig', [
+            'prestations' => Prestation::all(),
         ]);
 
         return $response;
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ServerRequestInterface|Request $request
+     * @param ResponseInterface|Response $response
      * @param $args
      *
      * @return ResponseInterface
@@ -40,32 +39,32 @@ class ArticleController extends BaseController
     public function editAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
         $id = $request->getAttribute('id');
-
-        /** @var Article $article */
-        $article = $id ? Article::find($id) : null;
+        /** @var Prestation $prestation */
+        $prestation = $id ? Prestation::find($id) : null;
 
         if ($request->isPost()) {
             $postedValues = $request->getParsedBody();
 
             if ($id) {
-                $article->update($postedValues);
+                $prestation->update($postedValues);
             } else {
-                $article = new Article($postedValues);
-                $article->save();
+                $prestation = new Prestation($postedValues);
+                $prestation->save();
             }
 
-            if (!$article->getErrors()) {
-                return $this->redirect($this->get('router')->pathFor('article-list'));
+            //If no errors, go the page list
+            if (!$prestation->getErrors()) {
+                return $this->redirect($this->get('router')->pathFor('prestation-list'));
             }
         }
 
-        $this->view->render($response, 'Article/edit.html.twig', [
-            'article' => $article,
-            'categories' => Categorie::all()->sortBy('label'),
+        $this->view->render($response, 'Prestation/edit.html.twig', [
+            'prestation' => $prestation,
         ]);
 
         return $response;
     }
+
 
     /**
      * @param ServerRequestInterface $request
@@ -76,11 +75,11 @@ class ArticleController extends BaseController
      */
     public function deleteAction(ServerRequestInterface $request, ResponseInterface $response, $arg)
     {
-        /** @var Article $article */
-        if ($article = Article::find($request->getAttribute('id'))) {
-            $article->delete();
+        /** @var Prestation $prestation */
+        if ($prestation = Prestation::find($request->getAttribute('id'))) {
+            $prestation->delete();
         }
 
-        return $this->redirect($this->get('router')->pathFor('article-list'));
+        return $this->redirect($this->get('router')->pathFor('prestation-list'));
     }
 }

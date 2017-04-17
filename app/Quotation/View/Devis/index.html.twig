@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li>Devis</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% include "Default/list_open.html.twig" %}
+        <div class="widget-body">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{ path_for('devis-edit') }}" class="btn btn btn-default">Nouveau</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table datatable table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Client</th>
+                    <th>Durée</th>
+                    <th>Nb Personnes</th>
+                    <th>Montant</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for devis in deviss %}
+                    <tr>
+                        <td>{{ devis.id_devis }}</td>
+                        <td>{{ devis.label }}</td>
+                        <td>{{ devis.client.nom }}</td>
+                        <td>{{ devis.nb_pax }}</td>
+                        <td>
+                            <a href="{{ path_for('devis-edit', {'id': devis.id_devis}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="{{ path_for('devis-delete', {'id': devis.id_devis}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% include "Default/list_close.html.twig" %}
+{% endblock %}

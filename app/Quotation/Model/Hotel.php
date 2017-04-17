@@ -12,8 +12,12 @@ class Hotel extends BaseModel
     protected $primaryKey = 'id_hotel';
 
 
-    protected $fillable = ['label', 'categorie', 'prix_single', 'prix_double', 'prix_petit_dejeuner', 'prix_dejeuner', 'prix_diner', 'lit_supp', 'vignette', 'taxe'];
+    protected $fillable = ['id_ville', 'label', 'categorie', 'prix_single', 'prix_double', 'prix_petit_dejeuner', 'prix_dejeuner', 'prix_diner', 'lit_supp', 'vignette', 'taxe'];
 
+    public function ville()
+    {
+        return $this->hasOne(Ville::class, 'id_ville', 'id_ville');
+    }
     /**
      * @param $data
      * @return void
@@ -21,6 +25,8 @@ class Hotel extends BaseModel
     protected function setValidator($data)
     {
         $this->validator = new Validator($data, [], 'fr');
+
+        $this->validator->rule('required', 'id_ville');
 
         $this->validator
             ->rule('required', 'label')
@@ -37,6 +43,7 @@ class Hotel extends BaseModel
 
         $this->validator
             ->labels([
+                'id_ville' => 'La ville',
                 'label' => 'Le nom de l\'hotel',
                 'categorie' => 'Catégorie',
             ]);
