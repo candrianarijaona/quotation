@@ -27,6 +27,18 @@
         </li>
 
         <li>
+            <a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Clients</span></a>
+            <ul>
+                <li>
+                    <a href="{{ path_for('client-list') }}">Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path_for('client-edit') }}">Ajout</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
             <a href="#" title="Prestation"><i class="fa fa-lg fa-fw fa-cubes"></i> <span class="menu-item-parent">Prestation</span></a>
             <ul>
                 <li>
@@ -64,7 +76,7 @@
             </ul>
         </li>
         <li>
-            <a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Utilisateurs</span></a>
+            <a href="#"><i class="fa fa-lg fa-fw fa-user-secret"></i> <span class="menu-item-parent">Utilisateurs</span></a>
             <ul>
                 <li>
                     <a href="#">Liste</a>

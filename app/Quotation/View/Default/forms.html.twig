@@ -29,7 +29,8 @@
                 {% endfor %}
             </select>
         </label>
-        {% for error in errors %}
+        {% set errors = attribute(model, 'errors') %}
+        {% for error in attribute(errors, name) %}
             <div class="note note-error">{{ error }}</div>
         {% endfor %}
     </section>

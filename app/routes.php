@@ -4,6 +4,15 @@
 $app->get('/', \Quotation\Controller\HomeController::class . ':indexAction')
     ->setName('home');
 
+$app->group('/client', function() use ($app) {
+    $app->get('/list/', \Quotation\Controller\ClientController::class . ':indexAction')
+        ->setName('client-list');
+    $app->map(['GET', 'POST'], '/edit/[{id: \d+}]', \Quotation\Controller\ClientController::class . ':editAction')
+        ->setName('client-edit');
+    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\ClientController::class . ':deleteAction')
+        ->setName('client-delete');
+});
+
 $app->group('/devis', function() use ($app) {
     $app->get('/list/', \Quotation\Controller\DevisController::class . ':indexAction')
         ->setName('devis-list');

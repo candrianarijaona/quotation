@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% import 'Default/forms.html.twig' as forms %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li><a href="{{ path_for('client-list') }}">Client</a></li><li>Edition</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% include 'Default/form_open.html.twig' with {'title' : 'Client'} %}
+
+        <form action="{{ path_for('client-edit', {'id': client.id_client}) }}" class="smart-form" method="post">
+            <header>
+                {% if client.id_client %}Modification{% else %}Nouveau{% endif %}
+            </header>
+
+            <fieldset>
+                {{ forms.hidden('id_client', client) }}
+                {{ forms.select('civility', 'Civilité', client, {'data': ['Mme', 'Mr']}) }}
+                {{ forms.input('last_name', 'Nom', client) }}
+                {{ forms.input('first_name', 'Prénoms', client) }}
+                {{ forms.input('email', 'Email', client) }}
+                {{ forms.input('phone', 'Téléphone', client) }}
+                {{ forms.input('adresse', 'Adresse', client) }}
+            </fieldset>
+
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+                <a type="button" class="btn btn-default" href="{{ path_for('client-list') }}">
+                    Retour
+                </a>
+            </footer>
+        </form>
+    {% include 'Default/form_close.html.twig' %}
+{% endblock %}

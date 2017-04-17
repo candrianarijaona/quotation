@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li>Client</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% include "Default/list_open.html.twig" %}
+        <div class="widget-body">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{ path_for('client-edit') }}" class="btn btn btn-default">Nouveau</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table datatable table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom et Prénoms</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.id_client }}</td>
+                        <td>{{ client.first_name }} {{ client.last_name }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.phone }}</td>
+                        <td>
+                            <a href="{{ path_for('client-edit', {'id': client.id_client}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="{{ path_for('client-delete', {'id': client.id_client}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% include "Default/list_close.html.twig" %}
+{% endblock %}
