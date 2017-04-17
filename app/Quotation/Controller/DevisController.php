@@ -27,4 +27,40 @@ class DevisController extends BaseController
 
         return $response;
     }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function editAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $id = $request->getAttribute('id');
+
+        /** @var Devis $devis */
+        $devis = $id ? Devis::find($id) : null;
+
+        if ($request->isPost()) {
+            $postedValues = $request->getParsedBody();
+
+            if ($id) {
+                $devis->update($postedValues);
+            } else {
+                $devis = new Devis($postedValues);
+                $devis->save();
+            }
+
+            if (!$devis->getErrors()) {
+                return $this->redirect($this->get('router')->pathFor('devis-list'));
+            }
+        }
+
+        $this->view->render($response, 'Devis/edit.html.twig', [
+            'devis' => $devis,
+        ]);
+
+        return $response;
+    }
 }

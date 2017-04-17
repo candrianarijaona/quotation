@@ -17,13 +17,9 @@
             </header>
 
             <fieldset>
-
-                <input type="hidden" name="id_prestation" value="{{ prestation.id_prestation }}" />
-
-                {{ forms.input('label', 'Désignation', prestation.label, prestation.errors.label) }}
-
-                {{ forms.select('type', 'Type', prestation.type, prestation.errors.type, {'data': ['forfait', 'location', 'autre']}) }}
-
+                {{ foms.hidden('id_prestation', prestation) }}
+                {{ forms.input('label', 'Désignation', prestation) }}
+                {{ forms.select('type', 'Type', prestation, {'data': ['forfait', 'location', 'autre']}) }}
             </fieldset>
 
             <footer>

@@ -18,29 +18,29 @@
 
             <fieldset>
 
-                <input type="hidden" name="id_hotel" value="{{ hotel.id_hotel }}" />
+                {{ forms.hidden('id_hotel', hotel) }}
 
-                {{ forms.input('label', 'Nom', hotel.label, hotel.errors.label) }}
+                {{ forms.input('label', 'Nom', hotel) }}
 
-                {{ forms.select('id_ville', 'Ville', hotel.id_ville, hotel.errors.id_ville, {'data' : villes, 'id': 'id_ville', 'label': 'label'}) }}
+                {{ forms.select('id_ville', 'Ville', hotel, {'data' : villes, 'id': 'id_ville', 'label': 'label'}) }}
 
-                {{ forms.select('categorie', 'Catégorie', hotel.categorie, hotel.errors.categorie, {'data' : range(1,5)}) }}
+                {{ forms.select('categorie', 'Catégorie', hotel, {'data' : range(1,5)}) }}
 
-                {{ forms.input('prix_single', 'Prix Single', hotel.prix_single, hotel.errors.prix_single, 'col col-6') }}
+                {{ forms.input('prix_single', 'Prix Single', hotel, 'col col-6') }}
 
-                {{ forms.input('prix_double', 'Prix Double', hotel.prix_double, hotel.errors.prix_double, 'col col-6') }}
+                {{ forms.input('prix_double', 'Prix Double', hotel, 'col col-6') }}
 
-                {{ forms.input('prix_petit_dejeuner', 'Prix Petit Déjeuner', hotel.prix_petit_dejeuner, hotel.errors.prix_petit_dejeuner, 'col col-4') }}
+                {{ forms.input('prix_petit_dejeuner', 'Prix Petit Déjeuner', hotel, 'col col-4') }}
 
-                {{ forms.input('prix_dejeuner', 'Prix Déjeuner', hotel.prix_dejeuner, hotel.errors.prix_dejeuner, 'col col-4') }}
+                {{ forms.input('prix_dejeuner', 'Prix Déjeuner', hotel, 'col col-4') }}
 
-                {{ forms.input('prix_diner', 'Prix Diner', hotel.prix_diner, hotel.errors.prix_diner, 'col col-4') }}
+                {{ forms.input('prix_diner', 'Prix Diner', hotel, 'col col-4') }}
 
-                {{ forms.input('lit_supp', 'Lit supplémentaire', hotel.lit_supp, hotel.errors.lit_supp, 'col col-4') }}
+                {{ forms.input('lit_supp', 'Lit supplémentaire', hotel, 'col col-4') }}
 
-                {{ forms.input('vignette', 'Vignette', hotel.vignette, hotel.errors.vignette, 'col col-4') }}
+                {{ forms.input('vignette', 'Vignette', hotel, 'col col-4') }}
 
-                {{ forms.input('taxe', 'Taxe', hotel.taxe, hotel.errors.taxe, 'col col-4') }}
+                {{ forms.input('taxe', 'Taxe', hotel, 'col col-4') }}
 
             </fieldset>
 

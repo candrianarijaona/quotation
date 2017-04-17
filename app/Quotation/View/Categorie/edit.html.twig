@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% import 'Default/forms.html.twig' as forms %}
+
 {% block ribbon %}
     <div id="ribbon">
         <ol class="breadcrumb"><li>Accueil</li><li>Catégorie</li><li>Edition</li></ol>
@@ -14,16 +16,8 @@
             </header>
 
             <fieldset>
-                <input type="hidden" name="id_categorie" value="{{ categorie.id_categorie }}" />
-                <section>
-                    <label class="label">Désignation</label>
-                    <label class="input {% if categorie.errors.label %}state-error{% endif %}">
-                        <input type="text" id="label" name="label" value="{{ categorie.label }}" />
-                    </label>
-                    {% for error in categorie.errors.label %}
-                        <div class="note note-error">{{ error }}</div>
-                    {% endfor %}
-                </section>
+                {{ forms.hidden('id_categorie', categorie) }}
+                {{ forms.input('label', 'Désignation', categorie) }}
             </fieldset>
 
             <footer>

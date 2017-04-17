@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'Default/form_open.html.twig' with {'title' : 'Hotel'} %}
+    {% include 'Default/form_open.html.twig' with {'title' : 'Article'} %}
 
         <form action="{{ path_for('article-edit', {'id': article.id_article}) }}" class="smart-form" method="post">
             <header>
@@ -18,13 +18,13 @@
 
             <fieldset>
 
-                <input type="hidden" name="id_article" value="{{ article.id_article }}" />
+                {{ forms.hidden('id_article', article) }}
 
-                {{ forms.input('label', 'Désignation', article.label, article.errors.label) }}
+                {{ forms.input('label', 'Désignation', article) }}
 
-                {{ forms.select('id_categorie', 'Catégorie', article.id_categorie, article.errors.id_categorie, {'data': categories, 'id' : 'id_categorie', 'label' : 'label'}) }}
+                {{ forms.select('id_categorie', 'Catégorie', article, {'data': categories, 'id' : 'id_categorie', 'label' : 'label'}) }}
 
-                {{ forms.input('unite', 'Unité', article.unite, article.errors.unite) }}
+                {{ forms.input('unite', 'Unité', article) }}
 
             </fieldset>
 

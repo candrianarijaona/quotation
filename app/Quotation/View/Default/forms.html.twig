@@ -1,16 +1,22 @@
-{% macro input(name, label, value, errors, classe) %}
+{% macro hidden(name, model) %}
+    <input type="hidden" name="{{ name }}" value="{{ attribute(model, name) }}">
+{% endmacro %}
+
+{% macro input(name, label, model, classe) %}
     <section {% if classe %}class="{{ classe }}"{% endif %}>
         <label class="label" for="{{ name }}">{{ label }}</label>
         <label class="input {% if errors %}state-error{% endif %}">
-            <input type="text" id="{{ name }}" name="{{ name }}" value="{{ value }}" />
+            <input type="text" id="{{ name }}" name="{{ name }}" value="{{ attribute(model, name) }}" />
         </label>
-        {% for error in errors %}
+        {% set errors = attribute(model, 'errors') %}
+        {% for error in attribute(errors, name) %}
             <div class="note note-error">{{ error }}</div>
         {% endfor %}
     </section>
 {% endmacro %}
 
-{% macro select(name, label, value, errors, dataProvider) %}
+{% macro select(name, label, model, dataProvider) %}
+    {% set value = attribute(model, name) %}
     <section>
         <label class="label" for="{{ name }}">{{ label }}</label>
         <label class="select {% if errors %}state-error{% endif %}">

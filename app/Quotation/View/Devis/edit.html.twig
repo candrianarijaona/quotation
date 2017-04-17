@@ -4,27 +4,23 @@
 
 {% block ribbon %}
     <div id="ribbon">
-        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li><a href="{{ path_for('article-list') }}">Article</a></li><li>Edition</li></ol>
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li><a href="{{ path_for('devis-list') }}">Devis</a></li><li>Edition</li></ol>
     </div>
 {% endblock %}
 
 {% block content %}
-    {% include 'Default/form_open.html.twig' with {'title' : 'Hotel'} %}
+    {% include 'Default/form_open.html.twig' with {'title' : 'Devis'} %}
 
-        <form action="{{ path_for('article-edit', {'id': article.id_article}) }}" class="smart-form" method="post">
+        <form action="{{ path_for('devis-edit', {'id': devis.id_devis}) }}" class="smart-form" method="post">
             <header>
-                {% if article.id_article %}Modification{% else %}Nouveau{% endif %}
+                {% if devis.id_devis %}Modification{% else %}Nouveau{% endif %}
             </header>
 
             <fieldset>
 
-                <input type="hidden" name="id_article" value="{{ article.id_article }}" />
-
-                {{ forms.input('label', 'Désignation', article.label, article.errors.label) }}
-
-                {{ forms.select('id_categorie', 'Catégorie', article.id_categorie, article.errors.id_categorie, {'data': categories, 'id' : 'id_categorie', 'label' : 'label'}) }}
-
-                {{ forms.input('unite', 'Unité', article.unite, article.errors.unite) }}
+                {{ forms.hidden('id_devis', devis) }}
+                {{ forms.input('date_devis', 'Date', devis, 'datepicker') }}
+                {{ forms.input('client') }}
 
             </fieldset>
 
@@ -32,7 +28,7 @@
                 <button type="submit" class="btn btn-primary">
                     Enregistrer
                 </button>
-                <a type="button" class="btn btn-default" href="{{ path_for('article-list') }}">
+                <a type="button" class="btn btn-default" href="{{ path_for('devis-list') }}">
                     Retour
                 </a>
             </footer>
