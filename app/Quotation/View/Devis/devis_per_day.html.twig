@@ -1,0 +1,52 @@
+{% if devis.nb_jours %}
+
+    {% import 'Default/forms.html.twig' as forms %}
+
+    <div class="form-bootstrapWizard" style="margin: -10px 0 30px 0">
+        <ul class="bootstrapWizard form-wizard">
+            {% for j in range(1, devis.nb_jours) %}
+                <li style="width: {{ 100/devis.nb_jours }}%" data-target="#step{{ j }}" {% if j == journee %}class="active"{% endif %}>
+                    <a href="{{ path_for('devis-edit', {'id': devis.id_devis, 'journee' : j}) }}"> <span class="step active">j{{ j }}</span> <!--<span class="title">Basic information</span> --></a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- widget grid -->
+    {%  include 'Default/form_open.html.twig' with {container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Hotel'}%}
+        <form action="" class="smart-form">
+            <fieldset>
+                {{ forms.select('id_hotel', 'Hotel', devisHotel, {'data': hotels, 'id': 'id_hotel', 'label': 'label'}) }}
+            </fieldset>
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+            </footer>
+        </form>
+    {% include 'Default/form_close.html.twig' with {noSection: true} %}
+
+    {%  include 'Default/form_open.html.twig' with {noSection: true, container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Prestation'}%}
+        <form action="" class="smart-form">
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+            </footer>
+        </form>
+    {% include 'Default/form_close.html.twig' with {noSection: true} %}
+
+    {%  include 'Default/form_open.html.twig' with {noSection: true, container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Provisions'} %}
+    <form action="" class="smart-form">
+        <fieldset>
+            {{ forms.input('') }}
+        </fieldset>
+        <footer>
+            <button type="submit" class="btn btn-primary">
+                Enregistrer
+            </button>
+        </footer>
+    </form>
+    {% include 'Default/form_close.html.twig'%}
+{% endif %}

@@ -19,9 +19,11 @@
             <fieldset>
 
                 {{ forms.hidden('id_devis', devis) }}
-                {{ forms.input('date_devis', 'Date', devis, 'datepicker') }}
-
-
+                {{ forms.select('id_client', 'Client', devis.client, {'data': clients, 'id': 'id_client', 'label': 'first_name'}) }}
+                {{ forms.input('date_depart', 'Date de depart', devis, 'datepicker') }}
+                {{ forms.input('nb_jours', 'Nombre de jours', devis) }}
+                {{ forms.input('nb_adulte', 'Adulte', devis, 'col col-6') }}
+                {{ forms.input('nb_enfant', 'Enfant', devis, 'col col-6') }}
             </fieldset>
 
             <footer>
@@ -34,4 +36,6 @@
             </footer>
         </form>
     {% include 'Default/form_close.html.twig' %}
+
+    {% include 'Devis/devis_per_day.html.twig' %}
 {% endblock %}

@@ -70,7 +70,7 @@ abstract class BaseModel extends Model
 
         $this->setValidator($data);
 
-        if (!$this->validator->validate()) {
+        if ($this->validator && !$this->validator->validate()) {
             $this->errors = $this->validator->errors();
             return false;
         }

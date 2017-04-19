@@ -5,7 +5,10 @@ namespace Quotation\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Quotation\Model\Devis;
+use Quotation\Model\Client;
+use Quotation\Model\Devis\Devis;
+use Quotation\Model\Devis\DevisHotel;
+use Quotation\Model\Hotel;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -22,7 +25,7 @@ class DevisController extends BaseController
     public function indexAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
         $this->view->render($response, 'Devis/index.html.twig', [
-            'articles' => Devis::all(),
+            'allDevis' => Devis::all(),
         ]);
 
         return $response;
@@ -38,6 +41,7 @@ class DevisController extends BaseController
     public function editAction(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
         $id = $request->getAttribute('id');
+        $journee = $request->getAttribute('journee') ?: 1;
 
         /** @var Devis $devis */
         $devis = $id ? Devis::find($id) : null;
@@ -51,14 +55,19 @@ class DevisController extends BaseController
                 $devis = new Devis($postedValues);
                 $devis->save();
             }
+        }
 
-            if (!$devis->getErrors()) {
-                return $this->redirect($this->get('router')->pathFor('devis-list'));
-            }
+        $devisHotel = null;
+        if ($id) {
+            $devisHotel = DevisHotel::where(['id_devis' => $id, 'journee' => $journee]);
         }
 
         $this->view->render($response, 'Devis/edit.html.twig', [
             'devis' => $devis,
+            'clients' => Client::all()->sortBy('last_name'),
+            'hotels' => Hotel::all()->sortBy('label'),
+            'journee' => $journee,
+            'devisHotel' => $devisHotel,
         ]);
 
         return $response;

@@ -9,16 +9,16 @@ $app->group('/client', function() use ($app) {
         ->setName('client-list');
     $app->map(['GET', 'POST'], '/edit/[{id: \d+}]', \Quotation\Controller\ClientController::class . ':editAction')
         ->setName('client-edit');
-    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\ClientController::class . ':deleteAction')
+    $app->get('/delete/{id: \d+}', \Quotation\Controller\ClientController::class . ':deleteAction')
         ->setName('client-delete');
 });
 
 $app->group('/devis', function() use ($app) {
     $app->get('/list/', \Quotation\Controller\DevisController::class . ':indexAction')
         ->setName('devis-list');
-    $app->map(['GET', 'POST'], '/edit/[{id: \d+}]', \Quotation\Controller\DevisController::class . ':editAction')
+    $app->map(['GET', 'POST'], '/edit/[{id: \d+}[/{journee: \d+}]]', \Quotation\Controller\DevisController::class . ':editAction')
         ->setName('devis-edit');
-    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\DevisController::class . ':deleteAction')
+    $app->get('/delete/{id: \d+}', \Quotation\Controller\DevisController::class . ':deleteAction')
         ->setName('devis-delete');
 });
 
@@ -27,7 +27,7 @@ $app->group('/article', function() use ($app) {
         ->setName('article-list');
     $app->map(['GET', 'POST'], '/edit/[{id: \d+}]', \Quotation\Controller\ArticleController::class . ':editAction')
         ->setName('article-edit');
-    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\ArticleController::class . ':deleteAction')
+    $app->get('/delete/{id: \d+}', \Quotation\Controller\ArticleController::class . ':deleteAction')
         ->setName('article-delete');
 });
 
@@ -54,6 +54,6 @@ $app->group('/hotel', function() use ($app) {
         ->setName('hotel-list');
     $app->map(['POST', 'GET'], '/edit/[{id: \d+}]', \Quotation\Controller\HotelController::class . ':editAction')
         ->setName('hotel-edit');
-    $app->get('/delete[/{id: \d+}]', \Quotation\Controller\HotelController::class . ':deleteAction')
+    $app->get('/delete/{id: \d+}', \Quotation\Controller\HotelController::class . ':deleteAction')
         ->setName('hotel-delete');
 });

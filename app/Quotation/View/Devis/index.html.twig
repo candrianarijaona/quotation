@@ -20,20 +20,23 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Date</th>
+                    <th>Date devis</th>
+                    <th>Date départ</th>
                     <th>Client</th>
                     <th>Durée</th>
                     <th>Nb Personnes</th>
-                    <th>Montant</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for devis in deviss %}
+                {% for devis in allDevis %}
                     <tr>
                         <td>{{ devis.id_devis }}</td>
-                        <td>{{ devis.label }}</td>
-                        <td>{{ devis.client.nom }}</td>
-                        <td>{{ devis.nb_pax }}</td>
+                        <td>{{ devis.date_devis }}</td>
+                        <td>{{ devis.date_depart }}</td>
+                        <td>{{ devis.client.last_name }} {{ devis.client.first_name }}</td>
+                        <td>{{ devis.nb_jours }}</td>
+                        <td>{{ devis.nb_adulte + devis.nb_enfant }}</td>
                         <td>
                             <a href="{{ path_for('devis-edit', {'id': devis.id_devis}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
                             <a href="{{ path_for('devis-delete', {'id': devis.id_devis}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>

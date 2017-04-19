@@ -1,18 +1,38 @@
 jQuery(function () {
+    //DATATABLE
     $('.datatable').dataTable();
-    $('.select2').select2();
-    $('.datepicker input').datepicker({
-        altField: ".datepicker",
-        closeText: 'Fermer',
-        prevText: 'Précédent',
-        nextText: 'Suivant',
-        currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        weekHeader: 'Sem.',
-        dateFormat: 'yy-mm-dd'
+
+    //SELECT 2
+    $('select.select2').each(function() {
+        var $this = $(this),
+            width = $this.attr('data-select-width') || '100%';
+        //, _showSearchInput = $this.attr('data-select-search') === 'true';
+        $this.select2({
+            formatMatches: function() {
+                return '';
+            },
+            //showSearchInput : _showSearchInput,
+            allowClear : true,
+            width : width
+        });
+
+        //clear memory reference
+        $this = null;
+    });
+
+    //DATEPICKER
+    $('.datepicker input').each(function() {
+
+        var $this = $(this),
+            dataDateFormat = $this.attr('data-dateformat') || 'yy-mm-dd';
+
+        $this.datepicker({
+            dateFormat : dataDateFormat,
+            prevText : '<i class="fa fa-chevron-left"></i>',
+            nextText : '<i class="fa fa-chevron-right"></i>',
+        });
+
+        //clear memory reference
+        $this = null;
     });
 });
