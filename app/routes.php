@@ -20,6 +20,8 @@ $app->group('/devis', function() use ($app) {
         ->setName('devis-edit');
     $app->get('/delete/{id: \d+}', \Quotation\Controller\DevisController::class . ':deleteAction')
         ->setName('devis-delete');
+    $app->post('/hotel/save', \Quotation\Controller\DevisController::class . ':saveHotelAction')
+        ->setName('devis-hotel-save');
 });
 
 $app->group('/article', function() use ($app) {

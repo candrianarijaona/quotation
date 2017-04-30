@@ -1,0 +1,63 @@
+{%  include 'Default/form_open.html.twig' with {container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Hotel'}%}
+<form action="#" class="smart-form" id="hotelForm" method="post">
+    <fieldset>
+        {{ forms.select('id_hotel', 'Hotel', devisHotel, {'data': hotels, 'id': 'id_hotel', 'label': 'label'}) }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_single', 'Qté Single', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_single', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_single', 'Montant', devisHotel.qte_single * devisHotel.prix_single, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_double', 'Qté Double', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_double', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_double', 'Montant', devisHotel.qte_double * devisHotel.prix_double, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_petit_dejeuner', 'Qté Petit dejeuner', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_petit_dejeuner', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_petit_dejeuner', 'Montant', devisHotel.qte_petit_dejeuner * devisHotel.prix_petit_dejeuner, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_diner', 'Qté diner', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_diner', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_diner', 'Montant', devisHotel.qte_diner * devisHotel.prix_diner, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_lit_supp', 'Qté lit supp', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_lit_supp', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_lit_supp', 'Montant', devisHotel.qte_lit_supp * devisHotel.prix_lit_supp, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_vignette', 'Qté Vignette', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_vignette', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_vignette', 'Montant', devisHotel.qte_vignette * devisHotel.prix_vignette, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_taxe', 'Qté Taxe', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_taxe', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_taxe', 'Montant', devisHotel.qte_taxe * devisHotel.prix_taxe, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.readonly('total_hotel', 'Total', 0, '', 'text-right') }}
+    </fieldset>
+
+    <footer>
+        <div class="alert alert-success fade in" style="display: none" id="successHotel">
+            <i class="fa-fw fa fa-check"></i>
+            <strong>Success</strong> Enregistrement avec succès.
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Enregistrer
+        </button>
+    </footer>
+</form>
+{% include 'Default/form_close.html.twig' with {noSection: true} %}

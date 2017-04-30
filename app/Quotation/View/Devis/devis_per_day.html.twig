@@ -1,5 +1,6 @@
 {% if devis.nb_jours %}
 
+    <input type="hidden" name="id_devis" id="id_devis" value="{{ devis.id_devis }}" />
     {% import 'Default/forms.html.twig' as forms %}
 
     <div class="form-bootstrapWizard" style="margin: -10px 0 30px 0">
@@ -13,19 +14,12 @@
         <div class="clearfix"></div>
     </div>
 
+    <div class="alert alert-info">
+        <strong>Journée :</strong> <span id="journee">{{ journee }}</span>
+    </div>
+
     <!-- widget grid -->
-    {%  include 'Default/form_open.html.twig' with {container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Hotel'}%}
-        <form action="" class="smart-form">
-            <fieldset>
-                {{ forms.select('id_hotel', 'Hotel', devisHotel, {'data': hotels, 'id': 'id_hotel', 'label': 'label'}) }}
-            </fieldset>
-            <footer>
-                <button type="submit" class="btn btn-primary">
-                    Enregistrer
-                </button>
-            </footer>
-        </form>
-    {% include 'Default/form_close.html.twig' with {noSection: true} %}
+    {% include "Devis/Detail/hotel.html.twig"%}
 
     {%  include 'Default/form_open.html.twig' with {noSection: true, container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Prestation'}%}
         <form action="" class="smart-form">

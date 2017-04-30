@@ -2,11 +2,20 @@
     <input type="hidden" name="{{ name }}" value="{{ attribute(model, name) }}">
 {% endmacro %}
 
-{% macro input(name, label, model, classe) %}
-    <section {% if classe %}class="{{ classe }}"{% endif %}>
+{% macro readonly(name, label, value, divClass, inputClass) %}
+    <section {% if divClass %}class="{{ divClass }}"{% endif %}>
         <label class="label" for="{{ name }}">{{ label }}</label>
         <label class="input {% if errors %}state-error{% endif %}">
-            <input type="text" id="{{ name }}" name="{{ name }}" value="{{ attribute(model, name) }}" />
+            <input type="text" readonly id="{{ name }}" value="{{ value }}" {% if inputClass %}class="{{ inputClass }}"{% endif %} />
+        </label>
+    </section>
+{% endmacro %}
+
+{% macro input(name, label, model, divClass, inputClass) %}
+    <section {% if divClass %}class="{{ divClass }}"{% endif %}>
+        <label class="label" for="{{ name }}">{{ label }}</label>
+        <label class="input {% if errors %}state-error{% endif %}">
+            <input type="text" id="{{ name }}" name="{{ name }}" value="{{ attribute(model, name) }}" {% if inputClass %}class="{{ inputClass }}"{% endif %} />
         </label>
         {% set errors = attribute(model, 'errors') %}
         {% for error in attribute(errors, name) %}

@@ -39,3 +39,8 @@
 
     {% include 'Devis/devis_per_day.html.twig' %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/app/Devis/devis_hotel.js"></script>
+{% endblock %}

@@ -59,7 +59,7 @@ class DevisController extends BaseController
 
         $devisHotel = null;
         if ($id) {
-            $devisHotel = DevisHotel::where(['id_devis' => $id, 'journee' => $journee]);
+            $devisHotel = DevisHotel::where(['id_devis' => $id, 'journee' => $journee])->first();
         }
 
         $this->view->render($response, 'Devis/edit.html.twig', [
@@ -71,5 +71,35 @@ class DevisController extends BaseController
         ]);
 
         return $response;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     * @return ResponseInterface
+     */
+    public function saveHotelAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $postedValues = $request->getParsedBody();
+        parse_str($postedValues['data'], $data);
+
+        $postedValues = array_merge($data, ['journee' => $postedValues['journee'], 'id_devis' => $postedValues['id_devis']]);
+        $postedValues = array_filter($postedValues);
+
+        /** @var DevisHotel $devisHotel */
+        $devisHotel = DevisHotel::updateOrCreate([
+                'id_hotel' => $postedValues['id_hotel'],
+                'journee' => $postedValues['journee'],
+                'id_devis' => $postedValues['id_devis'],
+            ],
+            $postedValues
+        );
+
+        return $response->withJson([
+                'id_devis_hotel' => $devisHotel->getAttribute('id_devis_hotel')
+            ],
+            200
+        );
     }
 }
