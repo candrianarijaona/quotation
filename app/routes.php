@@ -22,6 +22,13 @@ $app->group('/devis', function() use ($app) {
         ->setName('devis-delete');
     $app->post('/hotel/save', \Quotation\Controller\DevisController::class . ':saveHotelAction')
         ->setName('devis-hotel-save');
+    //Prestation
+    $app->group('/prestation', function() use ($app) {
+        $app->post('/save', \Quotation\Controller\DevisController::class . ':savePrestationAction')
+            ->setName('devis-prestation-save');
+        $app->get('/load/{id_devis: \d+}/{journee: \d+}', \Quotation\Controller\DevisController::class . ':loadPrestationAction')
+            ->setName('devis-prestation-load');
+    });
 });
 
 $app->group('/article', function() use ($app) {

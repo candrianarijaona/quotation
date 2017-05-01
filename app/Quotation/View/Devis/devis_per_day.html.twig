@@ -21,15 +21,7 @@
     <!-- widget grid -->
     {% include "Devis/Detail/hotel.html.twig"%}
 
-    {%  include 'Default/form_open.html.twig' with {noSection: true, container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Prestation'}%}
-        <form action="" class="smart-form">
-            <footer>
-                <button type="submit" class="btn btn-primary">
-                    Enregistrer
-                </button>
-            </footer>
-        </form>
-    {% include 'Default/form_close.html.twig' with {noSection: true} %}
+    {% include "Devis/Detail/prestation.html.twig" %}
 
     {%  include 'Default/form_open.html.twig' with {noSection: true, container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Provisions'} %}
     <form action="" class="smart-form">

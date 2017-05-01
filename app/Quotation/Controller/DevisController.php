@@ -8,7 +8,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Quotation\Model\Client;
 use Quotation\Model\Devis\Devis;
 use Quotation\Model\Devis\DevisHotel;
+use Quotation\Model\Devis\DevisPrestation;
 use Quotation\Model\Hotel;
+use Quotation\Model\Prestation;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -66,6 +68,7 @@ class DevisController extends BaseController
             'devis' => $devis,
             'clients' => Client::all()->sortBy('last_name'),
             'hotels' => Hotel::all()->sortBy('label'),
+            'prestations' => Prestation::all()->sortBy('label'),
             'journee' => $journee,
             'devisHotel' => $devisHotel,
         ]);
@@ -99,6 +102,61 @@ class DevisController extends BaseController
         return $response->withJson([
                 'id_devis_hotel' => $devisHotel->getAttribute('id_devis_hotel')
             ],
+            200
+        );
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function loadPrestationAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $devisPrestations = DevisPrestation
+            ::where([
+                ['id_devis', '=', $request->getAttribute('id_devis')],
+                ['journee', '=', $request->getAttribute('journee')],
+            ])
+            ->join('prestation', "prestation.id_prestation", '=', "devis_prestation.id_prestation")
+            ->get();
+
+        return $response->withJson([
+            'devisPrestations' => $devisPrestations
+        ],
+            200
+        );
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function savePrestationAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $postedValues = $request->getParsedBody();
+        parse_str($postedValues['data'], $data);
+
+        $postedValues = array_merge($data, ['journee' => $postedValues['journee'], 'id_devis' => $postedValues['id_devis']]);
+        $postedValues = array_filter($postedValues);
+
+        /** @var DevisPrestation $devisPrestation */
+        $devisPrestation = DevisPrestation::updateOrCreate([
+            'id_prestation' => $postedValues['id_prestation'],
+            'journee' => $postedValues['journee'],
+            'id_devis' => $postedValues['id_devis'],
+        ],
+            $postedValues
+        );
+
+        return $response->withJson([
+            'id_devis_prestation' => $devisPrestation->getAttribute('id_devis_prestation')
+        ],
             200
         );
     }
