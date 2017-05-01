@@ -20,6 +20,7 @@
                 {{ foms.hidden('id_prestation', prestation) }}
                 {{ forms.input('label', 'Désignation', prestation) }}
                 {{ forms.select('type', 'Type', prestation, {'data': ['forfait', 'location', 'autre']}) }}
+                {{ forms.input('prix', 'Prix par jour', prestation) }}
             </fieldset>
 
             <footer>

@@ -22,12 +22,22 @@ $app->group('/devis', function() use ($app) {
         ->setName('devis-delete');
     $app->post('/hotel/save', \Quotation\Controller\DevisController::class . ':saveHotelAction')
         ->setName('devis-hotel-save');
+    $app->get('/total/{id: \d+}/{journee: \d+}', \Quotation\Controller\DevisController::class . ':computeTotalAction')
+        ->setName('devis-hotel-save');
     //Prestation
     $app->group('/prestation', function() use ($app) {
         $app->post('/save', \Quotation\Controller\DevisController::class . ':savePrestationAction')
             ->setName('devis-prestation-save');
         $app->get('/load/{id_devis: \d+}/{journee: \d+}', \Quotation\Controller\DevisController::class . ':loadPrestationAction')
             ->setName('devis-prestation-load');
+    });
+
+    //Prestation
+    $app->group('/article', function() use ($app) {
+        $app->post('/save', \Quotation\Controller\DevisController::class . ':saveArticleAction')
+            ->setName('devis-article-save');
+        $app->get('/load/{id_devis: \d+}/{journee: \d+}', \Quotation\Controller\DevisController::class . ':loadArticleAction')
+            ->setName('devis-article-load');
     });
 });
 
@@ -65,4 +75,6 @@ $app->group('/hotel', function() use ($app) {
         ->setName('hotel-edit');
     $app->get('/delete/{id: \d+}', \Quotation\Controller\HotelController::class . ':deleteAction')
         ->setName('hotel-delete');
+    $app->get('/load/{id: \d+}', \Quotation\Controller\HotelController::class . ':loadOneAction')
+        ->setName('hotel-load');
 });

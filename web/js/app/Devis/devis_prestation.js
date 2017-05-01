@@ -18,6 +18,16 @@ jQuery(function () {
 
     };
 
+    prestationForm.clear = function () {
+        $('#id_prestation').val('').trigger('change');
+        $('#qte_prestation')
+            .val('')
+            .focus();
+        $('#prix_prestation').val('');
+        $('#montant_prestation').val('');
+
+    };
+
     var printPrestation = function (prestation) {
         $('#tbodyPrestation').append('<tr>' +
             '<td>' + prestation.label + '</td>' +
@@ -74,6 +84,7 @@ jQuery(function () {
 
     prestationForm.find('#id_prestation').change(function () {
         $('#prix_prestation').val($(this).find('option:selected').attr('title'));
+        $('#qte_prestation').trigger('keyup').focus();
     });
 
     //Submit Form
@@ -101,6 +112,7 @@ jQuery(function () {
                 prestationLoad($('#id_devis').val(), $('#journee').html());
             }
             $('#successPrestation').show();
+            prestationForm.clear();
         });
 
         return false;

@@ -11,7 +11,7 @@ class Article extends BaseModel
 
     protected $primaryKey = 'id_article';
 
-    protected $fillable = ['label', 'id_categorie', 'unite'];
+    protected $guarded = ['id_article'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -40,10 +40,14 @@ class Article extends BaseModel
             ->rule('required', 'id_categorie');
 
         $this->validator
+            ->rule('required', 'prix');
+
+        $this->validator
             ->labels([
                 'label' => 'La désignation',
                 'unite' => 'L\'unité',
-                'id_categorie' => 'La catégorie'
+                'id_categorie' => 'La catégorie',
+                'prix' => 'Le prix'
             ]);
     }
 }

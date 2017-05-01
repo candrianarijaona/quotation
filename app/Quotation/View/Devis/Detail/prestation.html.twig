@@ -24,7 +24,7 @@
 <form action="#" class="smart-form" id="prestationForm">
     <fieldset>
         {{ forms.hidden('id_devis_prestation', null) }}
-        {{ forms.select('id_prestation', 'Désigation', null, {'data': prestations, 'id' : 'id_prestation', 'label' : 'label', 'title': 'prix'}) }}
+        {{ forms.select('id_prestation', 'Désignation', null, {'data': prestations, 'id' : 'id_prestation', 'label' : 'label', 'title': 'prix'}) }}
         {{ forms.input('qte_prestation', 'Qté', null, 'col col-4', 'text-right') }}
         {{ forms.input('prix_prestation', 'Prix', null, 'col col-4', 'text-right') }}
         {{ forms.readonly('montant_prestation', 'Montant', null, 'col col-4', 'text-right') }}

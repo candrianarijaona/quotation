@@ -1,0 +1,42 @@
+{%  include 'Default/form_open.html.twig' with {noSection: true, container_class: 'col-sm-12 col-md-12 col-lg-6', title: 'Provision'}%}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Designation</th>
+        <th>Qte</th>
+        <th>Prix</th>
+        <th>Montant</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody id="tbodyArticle">
+
+    </tbody>
+    <tfoot>
+    <tr class="bg-success">
+        <td colspan="3">Total</td>
+        <td id="totalArticle"></td>
+        <td></td>
+    </tr>
+    </tfoot>
+</table>
+
+<form action="#" class="smart-form" id="articleForm">
+    <fieldset>
+        {{ forms.hidden('id_devis_article', null) }}
+        {{ forms.select('id_article', 'Désignation', null, {'data': articles, 'id' : 'id_article', 'label' : 'label', 'title': 'prix'}) }}
+        {{ forms.input('qte_article', 'Qté', null, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_article', 'Prix', null, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_article', 'Montant', null, 'col col-4', 'text-right') }}
+    </fieldset>
+    <footer>
+        <div class="alert alert-success fade in" style="display: none" id="successArticle">
+            <i class="fa-fw fa fa-check"></i>
+            <strong>Success</strong> Enregistrement avec succès.
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Enregistrer
+        </button>
+    </footer>
+</form>
+{% include 'Default/form_close.html.twig' %}

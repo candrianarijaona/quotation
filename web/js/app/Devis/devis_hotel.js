@@ -1,5 +1,4 @@
 jQuery(function () {
-    var calculMontantHotel;
     var hotelForm = $('#hotelForm');
 
     hotelForm.find("input:text").keyup(function () {
@@ -17,10 +16,10 @@ jQuery(function () {
             jQuery('#montant_' + eltId).val(jQuery('#qte_' + eltId).val() * jQuery('#prix_' + eltId).val());
         }
 
-        calculMontantHotel();
+        hotelForm.calculMontant();
     });
 
-    calculMontantHotel = function () {
+    hotelForm.calculMontant = function () {
         var montant = 0;
 
         hotelForm.find("input:text").each(function () {
@@ -35,7 +34,34 @@ jQuery(function () {
         $('#total_hotel').val(montant);
     };
 
-    calculMontantHotel();
+    hotelForm.calculMontant();
+
+    hotelForm.fill = function(hotel) {
+        $('#prix_single').val(hotel.prix_single).trigger('keyup');
+        $('#prix_double').val(hotel.prix_double).trigger('keyup');
+        $('#prix_petit_dejeuner').val(hotel.prix_petit_dejeuner).trigger('keyup');
+        $('#prix_diner').val(hotel.prix_diner).trigger('keyup');
+        $('#prix_lit_supp').val(hotel.lit_supp).trigger('keyup');
+        $('#prix_vignette').val(hotel.vignette).trigger('keyup');
+        $('#prix_taxe').val(hotel.taxe).trigger('keyup');
+    }
+
+    hotelForm.find('#id_hotel').change(function() {
+        var idHotel = $(this).val();
+        if (!idHotel) {
+            return ;
+        }
+
+        $.ajax({
+            url: '/hotel/load/' + idHotel,
+            method: "GET",
+            dataType: "json"
+        }).done(function (data) {
+            if (data.hotel) {
+                hotelForm.fill(data.hotel);
+            }
+        });
+    });
 
     //Submit Form
     hotelForm.submit(function () {

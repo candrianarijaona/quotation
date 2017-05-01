@@ -27,6 +27,8 @@ class HotelController extends BaseController
         return $response;
     }
 
+
+
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
@@ -80,5 +82,21 @@ class HotelController extends BaseController
         }
 
         return $this->redirect($this->get('router')->pathFor('hotel-list'));
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function loadOneAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        return $response->withJson([
+            'hotel' => Hotel::find($request->getAttribute('id'))
+        ],
+            200
+        );
     }
 }

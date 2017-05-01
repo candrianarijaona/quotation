@@ -10,7 +10,7 @@ class Prestation extends BaseModel
 
     protected $primaryKey = 'id_prestation';
 
-    protected $fillable = ['label', 'type'];
+    protected $guarded = ['id_prestation'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -36,9 +36,13 @@ class Prestation extends BaseModel
             ->rule('required', 'type');
 
         $this->validator
+            ->rule('required', 'prix');
+
+        $this->validator
             ->labels([
                 'label' => 'La désignation',
                 'type' => 'Le type',
+                'prix' => 'Le prix',
             ]);
     }
 }

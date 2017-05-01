@@ -23,6 +23,7 @@
                     <th>Désignation</th>
                     <th>Catégorie</th>
                     <th>Unité</th>
+                    <th>Prix</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -33,6 +34,7 @@
                         <td>{{ article.label }}</td>
                         <td>{{ article.categorie.label }}</td>
                         <td>{{ article.unite }}</td>
+                        <td>{{ article.prix }}</td>
                         <td>
                             <a href="{{ path_for('article-edit', {'id': article.id_article}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
                             <a href="{{ path_for('article-delete', {'id': article.id_article}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>

@@ -22,6 +22,7 @@
                     <th>#</th>
                     <th>Désignation</th>
                     <th>Type</th>
+                    <th>Prix</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                         <td>{{ prestation.id_prestation }}</td>
                         <td>{{ prestation.label}}</td>
                         <td>{{ prestation.type }}</td>
+                        <td>{{ prestation.prix }}</td>
                         <td>
                             <a href="{{ path_for('prestation-edit', {'id': prestation.id_prestation}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
                             <a href="{{ path_for('prestation-delete', {'id': prestation.id_prestation}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>

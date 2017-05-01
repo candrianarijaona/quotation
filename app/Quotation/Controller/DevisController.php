@@ -5,8 +5,10 @@ namespace Quotation\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Quotation\Model\Article;
 use Quotation\Model\Client;
 use Quotation\Model\Devis\Devis;
+use Quotation\Model\Devis\DevisArticle;
 use Quotation\Model\Devis\DevisHotel;
 use Quotation\Model\Devis\DevisPrestation;
 use Quotation\Model\Hotel;
@@ -69,11 +71,32 @@ class DevisController extends BaseController
             'clients' => Client::all()->sortBy('last_name'),
             'hotels' => Hotel::all()->sortBy('label'),
             'prestations' => Prestation::all()->sortBy('label'),
+            'articles' => Article::all()->sortBy('label'),
             'journee' => $journee,
             'devisHotel' => $devisHotel,
         ]);
 
         return $response;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     * @return ResponseInterface
+     */
+    public function computeTotalAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $totalDevis = $this->get('devis')->computeTotalDevis(
+            $request->getAttribute('id'),
+            $request->getAttribute('journee')
+        );
+
+        return $response->withJson([
+            'total' => $totalDevis,
+        ],
+            200
+        );
     }
 
     /**
@@ -156,6 +179,61 @@ class DevisController extends BaseController
 
         return $response->withJson([
             'id_devis_prestation' => $devisPrestation->getAttribute('id_devis_prestation')
+        ],
+            200
+        );
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function loadArticleAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $devisArticles = DevisArticle
+            ::where([
+                ['id_devis', '=', $request->getAttribute('id_devis')],
+                ['journee', '=', $request->getAttribute('journee')],
+            ])
+            ->join('article', "article.id_article", '=', "devis_article.id_article")
+            ->get();
+
+        return $response->withJson([
+            'devisArticles' => $devisArticles
+        ],
+            200
+        );
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function saveArticleAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $postedValues = $request->getParsedBody();
+        parse_str($postedValues['data'], $data);
+
+        $postedValues = array_merge($data, ['journee' => $postedValues['journee'], 'id_devis' => $postedValues['id_devis']]);
+        $postedValues = array_filter($postedValues);
+
+        /** @var DevisArticle $devisArticle */
+        $devisArticle = DevisArticle::updateOrCreate([
+            'id_article' => $postedValues['id_article'],
+            'journee' => $postedValues['journee'],
+            'id_devis' => $postedValues['id_devis'],
+        ],
+            $postedValues
+        );
+
+        return $response->withJson([
+            'id_devis_article' => $devisArticle->getAttribute('id_devis_article')
         ],
             200
         );
