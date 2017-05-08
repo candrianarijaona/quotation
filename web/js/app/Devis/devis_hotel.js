@@ -31,7 +31,7 @@ jQuery(function () {
             }
         });
 
-        $('#total_hotel').val(montant);
+        $('#total_hotel').val(montant.toLocaleString());
     };
 
     hotelForm.calculMontant();
@@ -39,6 +39,8 @@ jQuery(function () {
     hotelForm.fill = function(hotel) {
         $('#prix_single').val(hotel.prix_single).trigger('keyup');
         $('#prix_double').val(hotel.prix_double).trigger('keyup');
+        $('#prix_triple').val(hotel.prix_triple).trigger('keyup');
+        $('#prix_familial').val(hotel.prix_familial).trigger('keyup');
         $('#prix_petit_dejeuner').val(hotel.prix_petit_dejeuner).trigger('keyup');
         $('#prix_diner').val(hotel.prix_diner).trigger('keyup');
         $('#prix_lit_supp').val(hotel.lit_supp).trigger('keyup');

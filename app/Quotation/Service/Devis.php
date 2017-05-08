@@ -34,7 +34,7 @@ class Devis
         }
 
         return
-            $this->compouteTotalPrestation($where) +
+            $this->computeTotalPrestation($where) +
             $this->computeTotalArticle($where) +
             $this->computeTotalHotel($where);
     }
@@ -43,7 +43,7 @@ class Devis
      * @param array $where
      * @return float
      */
-    private function compouteTotalPrestation(array $where)
+    public function computeTotalPrestation(array $where)
     {
         $totalPrestation = 0;
 
@@ -61,7 +61,7 @@ class Devis
      * @param array $where
      * @return float
      */
-    private function computeTotalArticle(array $where)
+    public function computeTotalArticle(array $where)
     {
         $totalArticle = 0;
 
@@ -79,7 +79,7 @@ class Devis
      * @param array $where
      * @return float
      */
-    private function computeTotalHotel(array $where)
+    public function computeTotalHotel(array $where)
     {
         $totalHotel = 0;
 
@@ -88,6 +88,8 @@ class Devis
         foreach ($hotels as $hotel) {
             $totalHotel += $hotel->qte_single * $hotel->prix_single;
             $totalHotel += $hotel->qte_double * $hotel->prix_double;
+            $totalHotel += $hotel->qte_triple * $hotel->prix_triple;
+            $totalHotel += $hotel->qte_familial * $hotel->prix_familial;
             $totalHotel += $hotel->qte_petit_dejeuner * $hotel->prix_petit_dejeuner;
             $totalHotel += $hotel->qte_diner * $hotel->prix_diner;
             $totalHotel += $hotel->qte_lit_supp * $hotel->prix_lit_supp;

@@ -18,6 +18,8 @@ $app->group('/devis', function() use ($app) {
         ->setName('devis-list');
     $app->map(['GET', 'POST'], '/edit/[{id: \d+}[/{journee: \d+}]]', \Quotation\Controller\DevisController::class . ':editAction')
         ->setName('devis-edit');
+    $app->get('/invoice/{id: \d+}', \Quotation\Controller\DevisController::class . ':invoiceAction')
+        ->setName('devis-invoice');
     $app->get('/delete/{id: \d+}', \Quotation\Controller\DevisController::class . ':deleteAction')
         ->setName('devis-delete');
     $app->post('/hotel/save', \Quotation\Controller\DevisController::class . ':saveHotelAction')

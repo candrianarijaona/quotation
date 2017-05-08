@@ -58,7 +58,7 @@ jQuery(function () {
                     totalPrestation += dp.qte_prestation * dp.prix_prestation
                 });
 
-                $('#totalPrestation').html(totalPrestation);
+                $('#totalPrestation').html(totalPrestation.toLocaleString());
             }
         });
     };

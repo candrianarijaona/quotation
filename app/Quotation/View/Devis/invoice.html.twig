@@ -1,0 +1,172 @@
+{% extends 'layout.html.twig' %}
+
+{% block ribbon %}
+    <div id="ribbon">
+        <ol class="breadcrumb"><li><a href="{{ path_for('home') }}">Accueil</a></li><li><a href="{{ path_for('devis-list') }}">Devis</a></li><li>Facture</li></ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id="content" style="opacity: 1;">
+        <link href="/css/invoice.css" rel="stylesheet">
+
+        <!-- widget grid -->
+        <section id="widget-grid" class="">
+
+            <!-- row -->
+            <div class="row">
+
+                <!-- NEW WIDGET START -->
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget well jarviswidget-color-darken" id="wid-id-0" data-widget-sortable="false" data-widget-deletebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                        -->
+                        <header role="heading"><div class="jarviswidget-ctrls" role="menu">
+                                <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus "></i></a> <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a> </div>
+                            <span class="widget-icon"> <i class="fa fa-barcode"></i> </span>
+                            <h2>Item #44761 </h2>
+
+                            <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+                        <!-- widget div-->
+                        <div role="content">
+
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
+                            </div>
+                            <!-- end widget edit box -->
+
+                            <!-- widget content -->
+                            <div class="widget-body no-padding">
+
+                                <div class="widget-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8 text-align-right">
+                                            <div class="btn-group">
+                                                <a href="javascript:void(0)" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> Imprimer</a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ path_for('devis-edit', {'id': devis.id_devis }) }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> Editer le devis</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="padding-10">
+                                    <br>
+                                    <div class="pull-left">
+                                        <img src="/img/logo.png" width="100" alt="invoice icon">
+                                        <address>
+                                            <strong>Madagascar Tropic Voyage.</strong>
+                                            <br>Enceinte du meuble le Planete,
+                                            <br>Rue jean Ralaimongo,
+                                            <br>Antsirabe, Madagascar
+                                            <br><abbr title="Phone">Tel:</abbr> +261 (0) 32 44 434 46
+                                            <br>Email: info@madagascar-tropic-voyage.com
+                                        </address>
+                                    </div>
+                                    <div class="pull-right">
+                                        <h1 class="font-400">Devis</h1>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="semi-bold">{{ client.last_name }} {{ client.first_name }}</h4>
+                                            <address>
+                                                {{ client.adresse }}
+                                                <br><abbr title="Phone">Tel:</abbr> {{ client.phone }}
+                                            </address>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div>
+                                                <div>
+                                                    <strong>DEVIS NO :</strong>
+                                                    <span class="pull-right"> #{{ devis.date_devis|date("Ymd-") }}{{ devis.id_devis }} </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-md">
+                                                    <strong>DATE:</strong>
+                                                    <span class="pull-right"> <i class="fa fa-calendar"></i> {{ devis.date_devis|date("d/m/y") }} </span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="well well-sm  bg-color-darken txt-color-white no-border">
+                                                <div class="fa-lg">
+                                                    Total :
+                                                    <span class="pull-right"> {{ totalDevis }} Euro </span>
+                                                </div>
+
+                                            </div>
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>DESCRIPTION</th>
+                                            <th>MONTANT</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center"><strong>1</strong></td>
+                                            <td>Hotel incluant taxe et vignette</td>
+                                            <td class="text-right">{{ totalHotel }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"><strong>1</strong></td>
+                                            <td>Prestation (Location vehicule, guides, ...)</td>
+                                            <td class="text-right">{{ totalPrestation }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"><strong>1</strong></td>
+                                            <td>Provisions</td>
+                                            <td class="text-right">{{ totalArticle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Total</td>
+                                            <td class="text-right"><strong>{{ totalDevis }} €</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Marge</td>
+                                            <td class="text-right"><strong>-</strong></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    {% include "Devis/Invoice/footer.html.twig" %}
+                                </div>
+                            </div>
+                            <!-- end widget content -->
+                        </div>
+                        <!-- end widget div -->
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <!-- WIDGET END -->
+            </div>
+            <!-- end row -->
+
+        </section>
+        <!-- end widget grid -->
+    </div>
+{% endblock %}

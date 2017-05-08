@@ -58,7 +58,7 @@ jQuery(function () {
                     totalArticle += dp.qte_article * dp.prix_article
                 });
 
-                $('#totalArticle').html(totalArticle);
+                $('#totalArticle').html(totalArticle.toLocaleString());
             }
         });
     };

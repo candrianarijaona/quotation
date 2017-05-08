@@ -15,12 +15,20 @@ jQuery(function () {
                 method: "GET",
                 dataType: "json"
             }).done(function (data) {
-                $('#jqTotalJournee_' + day).html(data.total);
+                $('#jqTotalJournee_' + day).html(data.total.toLocaleString());
                 Devis.total += data.total;
                 Devis.populate(++day);
             });
         } else {
-            $('#grandTotalDevis').html(Devis.total);
+            var totalDevisEuro = 0;
+            var coursEuro = $('#cours_euro').val();
+
+            $('#grandTotalDevis').html(Devis.total.toLocaleString());
+            if (coursEuro) {
+                totalDevisEuro = (Devis.total / coursEuro).toFixed(2);
+            }
+
+            $('#grandTotalDevisEuro').html(totalDevisEuro.toLocaleString());
         }
     };
 

@@ -10,6 +10,15 @@
 
 {% block content %}
     {% include 'Default/form_open.html.twig' with {'title' : 'Devis'} %}
+        <div class="widget-body-toolbar">
+            <div class="row">
+                <div class="text-align-center">
+                    <div class="btn-group">
+                        <a href="{{ path_for('devis-invoice', {'id': devis.id_devis }) }}" class="btn btn-sm btn-success"> <i class="fa fa-file-excel-o"></i> Voir la facture</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <form action="{{ path_for('devis-edit', {'id': devis.id_devis}) }}" class="smart-form" method="post">
             <header>
@@ -17,11 +26,11 @@
             </header>
 
             <fieldset>
-
                 {{ forms.hidden('id_devis', devis) }}
                 {{ forms.select('id_client', 'Client', devis.client, {'data': clients, 'id': 'id_client', 'label': 'first_name'}) }}
                 {{ forms.input('date_depart', 'Date de depart', devis, 'datepicker') }}
                 {{ forms.input('nb_jours', 'Nombre de jours', devis) }}
+                {{ forms.input('cours_euro', 'Cours Euro', devis) }}
                 {{ forms.input('nb_adulte', 'Adulte', devis, 'col col-6') }}
                 {{ forms.input('nb_enfant', 'Enfant', devis, 'col col-6') }}
             </fieldset>

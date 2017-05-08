@@ -17,6 +17,18 @@
     </fieldset>
 
     <fieldset>
+        {{ forms.input('qte_triple', 'Qté Triple', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_triple', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_triple', 'Montant', devisHotel.qte_triple * devisHotel.prix_triple, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
+        {{ forms.input('qte_familial', 'Qté Familial', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.input('prix_familial', 'Prix', devisHotel, 'col col-4', 'text-right') }}
+        {{ forms.readonly('montant_familial', 'Montant', devisHotel.qte_familial * devisHotel.prix_familial, 'col col-4', 'text-right') }}
+    </fieldset>
+
+    <fieldset>
         {{ forms.input('qte_petit_dejeuner', 'Qté Petit dejeuner', devisHotel, 'col col-4', 'text-right') }}
         {{ forms.input('prix_petit_dejeuner', 'Prix', devisHotel, 'col col-4', 'text-right') }}
         {{ forms.readonly('montant_petit_dejeuner', 'Montant', devisHotel.qte_petit_dejeuner * devisHotel.prix_petit_dejeuner, 'col col-4', 'text-right') }}

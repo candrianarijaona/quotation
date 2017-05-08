@@ -38,8 +38,9 @@
                         <td>{{ devis.nb_jours }}</td>
                         <td>{{ devis.nb_adulte + devis.nb_enfant }}</td>
                         <td>
-                            <a href="{{ path_for('devis-edit', {'id': devis.id_devis}) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-                            <a href="{{ path_for('devis-delete', {'id': devis.id_devis}) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="{{ path_for('devis-edit', {'id': devis.id_devis}) }}" class="btn btn-primary" title="Edition"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="{{ path_for('devis-invoice', {'id': devis.id_devis}) }}" class="btn btn-success" title="Facture"><i class="fa fa-file-excel-o"></i></a>
+                            <a href="{{ path_for('devis-delete', {'id': devis.id_devis}) }}" class="btn btn-danger" title="Suppression"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

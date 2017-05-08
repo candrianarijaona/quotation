@@ -83,6 +83,41 @@ class DevisController extends BaseController
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * @param $args
+     *
+     * @return ResponseInterface
+     */
+    public function invoiceAction(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        $id = $request->getAttribute('id');
+
+        /** @var Devis $devis */
+        $devis = Devis::where('id_devis', $id)->first();
+        $client = Client::where('id_client', $devis->id_client)->first();
+        $coursEchange = $devis->cours_euro ? : 3500; //Le cours de change est de 3500 par défaut
+
+        $where = [[ 'id_devis', '=', $id ]];
+
+        $totalArticle = $this->get('devis')->computeTotalArticle($where);
+        $totalPrestation = $this->get('devis')->computeTotalPrestation($where);
+        $totalHotel = $this->get('devis')->computeTotalHotel($where);
+
+        $this->view->render($response, 'Devis/invoice.html.twig', [
+            'devis' => $devis,
+            'client' => $client,
+            'totalArticle' => $totalArticle = round($totalArticle / $coursEchange, 2),
+            'totalPrestation' => $totalPrestation = round($totalPrestation / $coursEchange, 2),
+            'totalHotel' => $totalHotel = round($totalHotel / $coursEchange, 2),
+            'totalDevis' => ($totalArticle + $totalHotel + $totalPrestation),
+        ]);
+
+        return $response;
+    }
+
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param $args
      * @return ResponseInterface
      */
     public function computeTotalAction(ServerRequestInterface $request, ResponseInterface $response, $args)

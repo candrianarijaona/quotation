@@ -12,12 +12,13 @@ class Hotel extends BaseModel
     protected $primaryKey = 'id_hotel';
 
 
-    protected $fillable = ['id_ville', 'label', 'categorie', 'prix_single', 'prix_double', 'prix_petit_dejeuner', 'prix_dejeuner', 'prix_diner', 'lit_supp', 'vignette', 'taxe'];
+    protected $guarded = ['id_hotel'];
 
     public function ville()
     {
         return $this->hasOne(Ville::class, 'id_ville', 'id_ville');
     }
+
     /**
      * @param $data
      * @return void
